@@ -5,8 +5,8 @@ export interface IArtist {
 }
 
 export interface IAlbum {
-  name: string;
   artist: string;
+  name: string;
   year: string;
   image: string | null;
 }
