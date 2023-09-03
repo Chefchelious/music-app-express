@@ -2,8 +2,8 @@ import express from "express";
 import Album from "../models/Album";
 import {imagesUpload} from "../multer";
 import mongoose from "mongoose";
-import {IAlbum} from "../types";
 import { ObjectId } from "mongodb";
+import {IAlbum} from "../types";
 
 const albumsRouter = express.Router();
 
@@ -27,7 +27,7 @@ albumsRouter.get('/', async (req, res) => {
 
 albumsRouter.get('/:id', async (req, res) => {
   try {
-    const album = await Album.findById(req.params.id);
+    const album = await Album.findById(req.params.id).populate('artist');
 
     if(!album) {
       return res.status(404).send({"error": "Not found"});
