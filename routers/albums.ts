@@ -40,8 +40,6 @@ albumsRouter.get('/:id', async (req, res) => {
 });
 
 albumsRouter.post('/', imagesUpload.single('image'), async (req, res, next) => {
-  // надо ли проверять уникальность альбома и id исполнителя, чтобы не допускать в базу одних и тех же исполнителей с такими же альбомами
-  // в этом случае findOne({_id: ObjectId(req.body.artist), name: req.body.name});
   try {
     const albumData: IAlbum = {
       artist: req.body.artist,

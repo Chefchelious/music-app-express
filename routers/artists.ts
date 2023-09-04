@@ -16,7 +16,7 @@ artistsRouter.get('/', async (_, res) => {
   }
 });
 
-artistsRouter.post('/', imagesUpload.single('image') , async (req, res, next) => { // нужно ли проверять исполнителя на уникальность? по findOne и закинуть тудым имя
+artistsRouter.post('/', imagesUpload.single('image') , async (req, res, next) => {
     try {
       const artistData: IArtist = {
         name: req.body.name,

@@ -11,7 +11,6 @@ tracksRouter.get('/', async (req, res) => {
   try {
     if(req.query.album) {
       const id = req.query.album as string;
-
       const tracksByAlbums = await Track.find({album: new ObjectId(id)});
 
       return res.send(tracksByAlbums);
