@@ -35,7 +35,7 @@ usersRouter.post('/sessions', async (req, res, next) => {
     const isMatch = await user.checkPassword(req.body.password);
 
     if (!isMatch) {
-      return res.status(401).send({error: 'Wrong password or username!'});
+      return res.status(400).send({error: 'Wrong password or username!'});
     }
 
     user.generateToken();
