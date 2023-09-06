@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
 import Track from "./Track";
+import {ITrackHistory} from "../types";
 
 const Schema = mongoose.Schema;
 
-const TrackHistorySchema = new Schema({
+const TrackHistorySchema = new Schema<ITrackHistory>({
   user: {
     type:  mongoose.Types.ObjectId,
     ref: 'User',

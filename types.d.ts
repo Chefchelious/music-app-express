@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+
 export interface IArtist {
   name: string;
   image: string | null;
@@ -24,7 +26,7 @@ export interface IUser {
 }
 
 export interface ITrackHistory {
-  user: string;
-  track: string;
+  user: mongoose.Schema.Types.ObjectId;
+  track: mongoose.Schema.Types.ObjectId;
   datetime: string;
 }
