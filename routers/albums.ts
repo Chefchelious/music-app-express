@@ -51,7 +51,7 @@ albumsRouter.post('/', imagesUpload.single('image'), async (req, res, next) => {
     const album = new Album(albumData);
     await album.save();
 
-    res.send(album);
+   return res.send(album);
   } catch (e) {
     if(e instanceof mongoose.Error.ValidationError) {
       return res.status(400).send(e);
