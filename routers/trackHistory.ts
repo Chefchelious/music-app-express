@@ -15,12 +15,12 @@ trackHistoryRouter.post('/', auth, async (req, res, next) => {
     });
     await trackHistory.save();
 
-    res.send(trackHistory);
+    return res.send(trackHistory);
   } catch (e) {
     if(e instanceof mongoose.Error.ValidationError) {
       return res.status(400).send(e);
     }
-    next(e);
+    return next(e);
   }
 });
 export default trackHistoryRouter;

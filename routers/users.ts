@@ -41,7 +41,7 @@ usersRouter.post('/sessions', async (req, res, next) => {
     user.generateToken();
     await user.save();
 
-    return res.send({message: 'Username and password correct!'})
+    return res.send({message: 'Username and password correct!'});
   } catch (e) {
     return next(e);
   }
