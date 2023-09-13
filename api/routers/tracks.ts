@@ -61,7 +61,7 @@ tracksRouter.post('/', async (req, res, next) => {
     if(e instanceof mongoose.Error.ValidationError) {
       return res.status(400).send(e);
     }
-    next(e);
+    return next(e);
   }
 });
 
