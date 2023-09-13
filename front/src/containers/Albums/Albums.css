@@ -1,11 +1,15 @@
-.artists {
+.albums {
   display: flex;
   gap: 30px;
   flex-wrap: wrap;
-  align-items: center;
 }
 
-.artist-card {
+.albums__title {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.album-card {
   text-align: center;
   width: 164px;
   cursor: pointer;
@@ -13,7 +17,7 @@
   text-decoration: none;
 }
 
-.artist-card__img-wrap {
+.album-card__img-wrap {
   width: 164px;
   margin-bottom: 20px;
   border-radius: 20px;
@@ -22,9 +26,13 @@
   padding: 3px;
 }
 
-.artist-card__img {
+.album-card__img {
   width: 100%;
   height: auto;
   border-radius: 20px;
   vertical-align: top;
+}
+
+.album-card__info p {
+  margin-bottom: 10px;
 }
