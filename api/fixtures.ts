@@ -20,13 +20,13 @@ const run = async () => {
     console.log('Collections were not present, skipping drop...');
   }
 
-  const [artist_50_cent, artist_50_pence] = await Artist.create({
+  const [artist_50_cent, knownAim] = await Artist.create({
     name: '50 центов',
-    image: null,
+    image: 'fixtures/50cent.jpg',
     info: 'famous MF',
   }, {
-    name: '50 пенсов',
-    image: 'fixtures/50pence.jpg',
+    name: 'KnownAim',
+    image: 'fixtures/KnownAim.jpg',
     info: 'less famous than 50 центов',
   });
 
@@ -34,25 +34,28 @@ const run = async () => {
     name: 'bandana',
     artist: artist_50_cent._id,
     year: 2021,
-    image: null,
+    image: 'fixtures/bandana.jpeg',
   }, {
-    name: 'gangsta',
+    name: 'get rich or die tryin',
     artist: artist_50_cent._id,
     year: 2022,
-    image: null,
+    image: 'fixtures/get-rich-album.jpg',
   }, {
-    name: 'cheaper than 50 cent but also nice',
-    artist: artist_50_pence._id,
+    name: 'dogolya',
+    artist: knownAim._id,
     year: 2023,
-    image: null,
+    image: 'fixtures/dogolya.jpg',
   }, {
     name: 'Someday I will become more expensive',
-    artist: artist_50_pence._id,
+    artist: knownAim._id,
     year: 2024,
-    image: 'fixtures/50pence.jpg',
+    image: 'fixtures/dima-shish.jpeg',
   });
 
-  const [track_1, track_2, track_3, track_4] = await Track.create({
+  const [
+    track_1, track_2, track_3, track_4, track_5, track_6, track_7, track_8, track_9, track_10, track_11, track_12, track_13,
+    track_14, track_15, track_16, track_17, track_18, track_19, track_20,
+  ] = await Track.create({
     name: 'In da Club',
     album: album_2._id,
     duration: '3:20',
@@ -63,16 +66,96 @@ const run = async () => {
     duration: '2:40',
     numberInAlbum: 3,
   }, {
-    name: 'ima 50 pense',
-    album: album_4._id,
-    duration: '1:40',
-    numberInAlbum: 1,
+    name: 'P.I.M.P.',
+    album: album_2._id,
+    duration: '2:50',
+    numberInAlbum: 2,
+  }, {
+    name: 'Poppin Them Thangs',
+    album: album_2._id,
+    duration: '3:00',
+    numberInAlbum: 4,
+  },{
+    name: 'Like My Style',
+    album: album_2._id,
+    duration: '3:40',
+    numberInAlbum: 5,
   }, {
     name: 'loot',
     album: album_1._id,
     duration: '2:30',
     numberInAlbum: 3,
-  });
+  }, {
+    name: '99 problems',
+    album: album_1._id,
+    duration: '2:25',
+    numberInAlbum: 1,
+  },{
+    name: 'Million',
+    album: album_1._id,
+    duration: '2:40',
+    numberInAlbum: 2,
+  },{
+    name: '5 nights crazy',
+    album: album_1._id,
+    duration: '2:18',
+    numberInAlbum: 4,
+  },{
+    name: 'Ladidadida',
+    album: album_1._id,
+    duration: '1:58',
+    numberInAlbum: 5,
+  },{
+    name: 'SUNSET',
+    album: album_3._id,
+    duration: '3:56',
+    numberInAlbum: 1,
+  },{
+    name: 'Растет тариф',
+    album: album_3._id,
+    duration: '3:09',
+    numberInAlbum: 2,
+  },{
+    name: 'Экспресс',
+    album: album_3._id,
+    duration: '3:12',
+    numberInAlbum: 3,
+  },{
+    name: 'Space',
+    album: album_3._id,
+    duration: '3:54',
+    numberInAlbum: 4,
+  },{
+    name: 'АЛИ',
+    album: album_3._id,
+    duration: '3:54',
+    numberInAlbum: 5,
+  },{
+    name: 'Балуюсь',
+    album: album_4._id,
+    duration: '1:55',
+    numberInAlbum: 1,
+  },{
+    name: 'Снег',
+    album: album_4._id,
+    duration: '2:59',
+    numberInAlbum: 2,
+  },{
+    name: 'Мистика',
+    album: album_4._id,
+    duration: '1:28',
+    numberInAlbum: 3,
+  },{
+    name: 'Стресс',
+    album: album_4._id,
+    duration: '3:03',
+    numberInAlbum: 5,
+  },{
+    name: 'Эзотерик',
+    album: album_4._id,
+    duration: '3:11',
+    numberInAlbum: 4,
+  },);
 
   const [user_1, user_2] = await User.create({
     username: 'Test 1',
