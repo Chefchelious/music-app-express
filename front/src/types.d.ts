@@ -17,3 +17,17 @@ export interface IAlbumsByArtist {
   artist: string;
   albums: IAlbum[];
 }
+
+export interface ITrack {
+  _id: string;
+  album: string;
+  name: string;
+  duration: string;
+  numberInAlbum: number;
+}
+
+export interface ITracksByAlbum {
+  title: string;
+  artist: IArtist;
+  tracks: ITrack[];
+}

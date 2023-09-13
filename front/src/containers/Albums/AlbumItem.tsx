@@ -1,6 +1,7 @@
 import React from 'react';
 import { IAlbum } from '../../types';
 import { apiUrl } from '../../constants';
+import { Link } from 'react-router-dom';
 
 interface IProps {
   album: IAlbum
@@ -12,7 +13,7 @@ const AlbumItem: React.FC<IProps> = ({album}) => {
     image = `${apiUrl}/${album.image}`;
   }
   return (
-    <div className="album-card">
+    <Link to={`/albums/${album._id}/tracks`} className="album-card">
       {image &&
         <div className="album-card__img-wrap">
           <img className="album-card__img" src={image} alt={album.name} />
@@ -24,7 +25,7 @@ const AlbumItem: React.FC<IProps> = ({album}) => {
         <p>Год выхода: {album.year}</p>
         <p>Треков: {album.totalTracks}</p>
       </div>
-    </div>
+    </Link>
   );
 };
 

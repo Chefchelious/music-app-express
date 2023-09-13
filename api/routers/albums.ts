@@ -24,7 +24,13 @@ albumsRouter.get('/', async (req, res) => {
       const albumsByArtist = await Album.find({artist: new ObjectId(id)}).sort({year: -1});
 
       // учесть что у артиста может и не быть альбомов, albumsByArtist проверить на length и вернуть просто пустой массив
-      // для albums
+      // для albums сделать:
+      // if (!albumsByArtist.length) {
+      //   return res.send({
+      //     artist: artist.name,
+      //     albums: [],
+      //   })
+      // }
 
       const promises = albumsByArtist.map(async (album) => {
         const tracksByAlbum = await Track.find({album: album._id});
