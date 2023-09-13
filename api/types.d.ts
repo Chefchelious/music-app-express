@@ -9,7 +9,7 @@ export interface IArtist {
 export interface IAlbum {
   artist: string;
   name: string;
-  year: string;
+  year: number;
   image: string | null;
 }
 
@@ -17,6 +17,7 @@ export interface ITrack {
   name: string;
   album: string;
   duration: string;
+  numberInAlbum: number;
 }
 
 export interface IUser {

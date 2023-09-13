@@ -33,22 +33,22 @@ const run = async () => {
   const [album_1, album_2, album_3, album_4] = await Album.create({
     name: 'bandana',
     artist: artist_50_cent._id,
-    year: '2022',
+    year: 2022,
     image: null,
   }, {
     name: 'gangsta',
     artist: artist_50_cent._id,
-    year: '2022',
+    year: 2022,
     image: null,
   }, {
     name: 'cheaper than 50 cent but also nice',
     artist: artist_50_pence._id,
-    year: '2023',
+    year: 2023,
     image: null,
   }, {
     name: 'Someday I will become more expensive',
     artist: artist_50_pence._id,
-    year: '2024',
+    year: 2024,
     image: 'fixtures/50pence.jpg',
   });
 
@@ -56,18 +56,22 @@ const run = async () => {
     name: 'In da Club',
     album: album_2._id,
     duration: '3:20',
+    numberInAlbum: 1,
   }, {
     name: 'Window Shopper',
     album: album_2._id,
     duration: '2:40',
+    numberInAlbum: 3,
   }, {
     name: 'ima 50 pense',
     album: album_4._id,
     duration: '1:40',
+    numberInAlbum: 1,
   }, {
     name: 'loot',
     album: album_1._id,
     duration: '2:30',
+    numberInAlbum: 3,
   });
 
   const [user_1, user_2] = await User.create({
