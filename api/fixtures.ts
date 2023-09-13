@@ -33,7 +33,7 @@ const run = async () => {
   const [album_1, album_2, album_3, album_4] = await Album.create({
     name: 'bandana',
     artist: artist_50_cent._id,
-    year: 2022,
+    year: 2021,
     image: null,
   }, {
     name: 'gangsta',

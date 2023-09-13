@@ -4,17 +4,46 @@ import {imagesUpload} from "../multer";
 import mongoose from "mongoose";
 import { ObjectId } from "mongodb";
 import {IAlbum} from "../types";
+import Track from "../models/Track";
+import Artist from "../models/Artist";
 
 const albumsRouter = express.Router();
 
 albumsRouter.get('/', async (req, res) => {
+
   try {
     if(req.query.artist) {
       const id = req.query.artist as string;
 
-      const albumsByArtist = await Album.find({artist: new ObjectId(id)});
+      const artist = await Artist.findById(id);
 
-      return res.send(albumsByArtist);
+      if (!artist) {
+        return res.status(404).send({error: 'Artist not found'});
+      }
+
+      const albumsByArtist = await Album.find({artist: new ObjectId(id)}).sort({year: -1});
+
+      // учесть что у артиста может и не быть альбомов, albumsByArtist проверить на length и вернуть просто пустой массив
+      // для albums
+
+      const promises = albumsByArtist.map(async (album) => {
+        const tracksByAlbum = await Track.find({album: album._id});
+
+        return {
+          _id: album._id,
+          name: album.name,
+          image: album.image,
+          year: album.year,
+          totalTracks: tracksByAlbum.length,
+        };
+      });
+
+      const fullAlbum = await Promise.all(promises);
+
+      return res.send({
+        artist: artist.name,
+        albums: fullAlbum,
+      });
     }
 
     const albums = await Album.find();
@@ -56,7 +85,28 @@ albumsRouter.post('/', imagesUpload.single('image'), async (req, res, next) => {
     if(e instanceof mongoose.Error.ValidationError) {
       return res.status(400).send(e);
     }
-    next(e);
+    return next(e);
+  }
+});
+
+albumsRouter.get('/:id/tracks', async (req, res, next) => {
+  try {
+    const album = await Album.findById(req.params.id).populate('artist');
+
+    if(!album) {
+      return res.status(404).send({error: 'Album not found'});
+    }
+
+    const tracks = await Track.find({album: req.params.id}).sort({numberInAlbum: 1});
+
+    return res.send({
+      title: album.name,
+      artist: album.artist,
+      tracks,
+    });
+
+  } catch (e) {
+    return next(e);
   }
 });
 
