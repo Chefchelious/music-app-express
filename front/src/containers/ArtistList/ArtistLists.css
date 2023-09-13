@@ -1,0 +1,28 @@
+.artists {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.artist-card {
+  text-align: center;
+  width: 164px;
+  cursor: pointer;
+}
+
+.artist-card__img-wrap {
+  width: 164px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: white;
+  padding: 3px;
+}
+
+.artist-card__img {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  vertical-align: top;
+}
