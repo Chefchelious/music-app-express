@@ -52,10 +52,7 @@ const run = async () => {
     image: 'fixtures/dima-shish.jpeg',
   });
 
-  const [
-    track_1, track_2, track_3, track_4, track_5, track_6, track_7, track_8, track_9, track_10, track_11, track_12, track_13,
-    track_14, track_15, track_16, track_17, track_18, track_19, track_20,
-  ] = await Track.create({
+  const [track_1, track_2, track_3] = await Track.create({
     name: 'In da Club',
     album: album_2._id,
     duration: '3:20',
