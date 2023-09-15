@@ -86,25 +86,4 @@ albumsRouter.post('/', imagesUpload.single('image'), async (req, res, next) => {
   }
 });
 
-albumsRouter.get('/:id/tracks', async (req, res, next) => {
-  try {
-    const album = await Album.findById(req.params.id).populate('artist');
-
-    if(!album) {
-      return res.status(404).send({error: 'Album not found'});
-    }
-
-    const tracks = await Track.find({album: req.params.id}).sort({numberInAlbum: 1});
-
-    return res.send({
-      title: album.name,
-      artist: album.artist,
-      tracks,
-    });
-
-  } catch (e) {
-    return next(e);
-  }
-});
-
 export default albumsRouter;

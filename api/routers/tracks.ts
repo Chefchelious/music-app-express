@@ -11,9 +11,20 @@ tracksRouter.get('/', async (req, res) => {
   try {
     if(req.query.album) {
       const id = req.query.album as string;
-      const tracksByAlbums = await Track.find({album: new ObjectId(id)});
 
-      return res.send(tracksByAlbums);
+      const album = await Album.findById(id).populate('artist');
+
+      if(!album) {
+        return res.status(404).send({error: 'Album not found'});
+      }
+
+      const tracks = await Track.find({album: id}).sort({numberInAlbum: 1});
+
+      return res.send({
+        title: album.name,
+        artist: album.artist,
+        tracks,
+      });
     }
 
     if(req.query.artist) {
