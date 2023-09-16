@@ -31,3 +31,19 @@ export interface ITracksByAlbum {
   artist: IArtist;
   tracks: ITrack[];
 }
+
+export interface RegisterMutation {
+  username: string;
+  password: string;
+}
+
+export interface IUser {
+  _id: string;
+  username: string;
+  token: string;
+}
+
+export interface RegisterResponse {
+  user: IUser;
+  message: string;
+}

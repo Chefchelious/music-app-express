@@ -6,6 +6,13 @@
   margin-bottom: 30px;
 }
 
+.header__content {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .header__logo {
   font-size: 35px;
   text-decoration: none;

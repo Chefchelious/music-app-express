@@ -17,6 +17,14 @@ const UserSchema = new Schema<IUser, TUserModel, IUserMethods>({
     type: String,
     required: true,
     unique: true,
+    validate: {
+      validator: async (username: string) => {
+        const user = await User.findOne({ username });
+
+        if (user) return false;
+      },
+      message: 'This user is already registered',
+    },
   },
   password: {
     type: String,
