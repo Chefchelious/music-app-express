@@ -23,4 +23,28 @@ trackHistoryRouter.post('/', auth, async (req, res, next) => {
     return next(e);
   }
 });
+
+trackHistoryRouter.get('/', auth, async (req, res, next) => {
+  try {
+    const user = (req as IRequestWithUser).user;
+
+    const tracksByUser = await TrackHistory.find({ user: user._id })
+      .populate({
+        path: 'track',
+        select: 'name',
+        populate: {
+          path: 'album',
+          select: 'album',
+          populate: {
+            path: 'artist',
+            select: 'name'
+          },
+        },
+      });
+
+    return res.send(tracksByUser);
+  } catch (e) {
+    return next(e);
+  }
+});
 export default trackHistoryRouter;
