@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { Link, Avatar, Box, Button, Container, Grid, TextField, Typography } from '@mui/material';
+import { Link, Avatar, Box, Container, Grid, TextField, Typography } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
-import { selectRegisterError } from '../../store/usersSlice';
+import { selectRegisterError, selectRegisterLoading } from '../../store/usersSlice';
 import { register } from '../../store/usersThunk';
 import { RegisterMutation } from '../../types';
+import { LoadingButton } from '@mui/lab';
 
 const Register = () => {
   const dispatch = useAppDispatch();
   const error = useAppSelector(selectRegisterError);
+  const loading = useAppSelector(selectRegisterLoading);
   const navigate = useNavigate();
 
   const [state, setState] = useState<RegisterMutation>({
@@ -31,6 +33,14 @@ const Register = () => {
       navigate('/');
     } catch {
       // nothing
+    }
+  };
+
+  const getFieldError = (name: string) => {
+    try {
+      return error?.errors[name].message;
+    } catch {
+      return undefined;
     }
   };
 
@@ -60,6 +70,8 @@ const Register = () => {
                 autoComplete="new-username"
                 value={state.username}
                 onChange={inputChangeHandler}
+                error={!!getFieldError('username')}
+                helperText={getFieldError('username')}
               />
             </Grid>
             <Grid item xs={12}>
@@ -71,17 +83,20 @@ const Register = () => {
                 autoComplete="new-password"
                 value={state.password}
                 onChange={inputChangeHandler}
+                error={!!getFieldError('password')}
+                helperText={getFieldError('password')}
               />
             </Grid>
           </Grid>
-          <Button
+          <LoadingButton
             type="submit"
             fullWidth
             variant="contained"
             sx={{mt: 3, mb: 2}}
+            loading={loading}
           >
             Sign Up
-          </Button>
+          </LoadingButton>
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link component={RouterLink} to="/login" variant="body2">
