@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './TrackList.css';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { useParams } from 'react-router-dom';
@@ -12,6 +12,8 @@ const TrackList = () => {
   const { id } = useParams() as {id: string};
   const tracks = useAppSelector(selectTracks);
   const loading = useAppSelector(selectTracksLoading);
+
+  const [link, setLink] = useState<string | null>(null);
 
   useEffect(() => {
     dispatch(fetchTracks(id));
@@ -27,14 +29,30 @@ const TrackList = () => {
 
         <ul className="tracklist">
           {tracks.tracks.map(track => (
-            <TrackItem key={track._id} track={track} />
+            <TrackItem key={track._id} track={track} setLink={setLink} link={link} />
           ))}
         </ul>
+
+        {link &&
+          <iframe
+            width="560"
+            height="315"
+            src={`https://www.youtube.com/embed/${link}?si=R_UhysoS50R3Gcvh&autoplay=1&mute=1`}
+            title="YouTube video player"
+            style={{display: 'block', border: 'none', margin: '0 auto'}}
+            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          ></iframe>
+        }
       </div>
     );
   }
 
-  return content;
+  return (
+    <>
+      {content}
+    </>
+  );
 };
 
 export default TrackList;

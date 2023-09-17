@@ -53,6 +53,7 @@ tracksRouter.post('/', async (req, res, next) => {
       name: req.body.name,
       duration: req.body.duration,
       numberInAlbum: req.body.numberInAlbum,
+      trackUrl: !req.body.trackUrl || req.body.trackUrl.trim() === '' ? null : req.body.trackUrl,
     };
 
     const trackNumberExist = await Track.findOne(

@@ -23,6 +23,7 @@ const TrackSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  trackUrl: String,
 });
 
 const Track = mongoose.model('Track', TrackSchema);

@@ -18,6 +18,7 @@ export interface ITrack {
   album: string;
   duration: string;
   numberInAlbum: number;
+  trackUrl: string | null;
 }
 
 export interface IUser {

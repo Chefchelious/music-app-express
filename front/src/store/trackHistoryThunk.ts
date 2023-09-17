@@ -17,3 +17,16 @@ export const fetchTrackHistory = createAsyncThunk<ITrackHistory[], undefined, { 
     return data;
   },
 );
+
+export const addTrackToTrackHistory = createAsyncThunk<void, string, { state: RootState }>(
+  'trackHistory/addTrack',
+  async (trackID, thunkAPI) => {
+    const token = thunkAPI.getState().users.user?.token;
+
+    await axiosApi.post('/track_history', {track: trackID}, {
+      headers: {
+        'Authorization': token,
+      },
+    });
+  },
+);

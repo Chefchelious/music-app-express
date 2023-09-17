@@ -4,6 +4,7 @@
 
 .tracklist {
   max-width: 500px;
+  margin-bottom: 30px;
 }
 
 .tracklist__item {
@@ -21,13 +22,28 @@
   align-items: center;
 }
 
-.tracklist__play-btn {
+.tracklist__play-btn, .track__play-btn_pause {
   position: relative;
   width: 40px;
   height: 40px;
   border: 2px solid rgba(179,93,227,1);
   border-radius: 50%;
   transition: scale 0.1s;
+}
+
+.track__play-btn_pause:before {
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: block;
+  width: 5px;
+  height: 10px;
+  border-top: none;
+  border-right: 2px solid limegreen;
+  border-bottom: none;
+  border-left: 2px solid limegreen;
 }
 
 .tracklist__play-btn:before {

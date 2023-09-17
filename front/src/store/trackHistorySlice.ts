@@ -1,16 +1,18 @@
 import { ITrackHistory } from '../types';
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../app/store';
-import { fetchTrackHistory } from './trackHistoryThunk';
+import { addTrackToTrackHistory, fetchTrackHistory } from './trackHistoryThunk';
 
 interface TrackHistoryState {
   items: ITrackHistory[];
   fetchLoading: boolean;
+  addTrackLoading: boolean;
 }
 
 const initialState: TrackHistoryState = {
   items: [],
   fetchLoading: false,
+  addTrackLoading: false,
 };
 
 const trackHistorySlice = createSlice({
@@ -28,6 +30,17 @@ const trackHistorySlice = createSlice({
       })
       .addCase(fetchTrackHistory.rejected, state => {
         state.fetchLoading = false;
+      });
+
+    builder
+      .addCase(addTrackToTrackHistory.pending, state => {
+        state.addTrackLoading = true;
+      })
+      .addCase(addTrackToTrackHistory.fulfilled, state => {
+        state.addTrackLoading = false;
+      })
+      .addCase(addTrackToTrackHistory.rejected, state => {
+        state.addTrackLoading = false;
       });
   },
 });
