@@ -1,43 +1,52 @@
 import React, { useEffect } from 'react';
 import {  useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../../app/hook';
+import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { selectUser } from '../../store/usersSlice';
+import { fetchTrackHistory } from '../../store/trackHistoryThunk';
+import { selectTrackHistory, selectTrackHistoryLoading } from '../../store/trackHistorySlice';
+import dayjs from 'dayjs';
+import Spinner from '../../components/Spinner/Spinner';
 
 const TrackHistory = () => {
+  const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
-  console.log(user);
+  const trackHistory = useAppSelector(selectTrackHistory);
+  const loading = useAppSelector(selectTrackHistoryLoading);
+
   const searchParams = new URLSearchParams(document.location.search);
   const userParams = searchParams.get('user');
-  // console.log(userParams);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (user === null || !userParams) {
-      console.log(user, 'red');
-      console.log(userParams, 'par');
       return navigate('/');
     }
   }, [navigate, userParams, user]);
 
+  useEffect(() => {
+    dispatch(fetchTrackHistory());
+  }, [dispatch]);
 
-  // useEffect(() => {
-  //   const queryParams = window.location.search;
-  //
-  //   console.log('queryParams', queryParams);
-  //
-  //   const urlParams = new URLSearchParams(queryParams);
-  //
-  //   console.log('urlParams', urlParams);
-  //
-  //   const userParam = urlParams.get('user');
-  //
-  //   console.log('userParam' ,userParam);
-  //
-  //   console.log('Значение параметра "user":', userParam);
-  // }, []);
-  return (
+
+  return loading ? <Spinner /> : (
     <div className="container">
-      Track History
+      <ul style={{maxWidth: '600px', margin: '0 auto'}}>
+        {trackHistory.map(t => (
+          <li
+            key={t._id}
+            style={{
+              marginBottom: '15px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: '30px'
+          }}
+          >
+            <span>{t.artist} - {t.track}</span>
+            <span>at: {dayjs(t.datetime).format('DD.MM.YYYY HH:mm')}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
