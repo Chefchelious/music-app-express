@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import './TrackList.css';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { useParams } from 'react-router-dom';
 import { selectTracks, selectTracksLoading } from '../../store/tracksSlice';
 import { fetchTracks } from '../../store/tracksThunk';
 import Spinner from '../../components/Spinner/Spinner';
 import TrackItem from './TrackItem';
+import { ITrack } from '../../types';
+import './TrackList.css';
 
 const TrackList = () => {
   const dispatch = useAppDispatch();
@@ -13,15 +14,19 @@ const TrackList = () => {
   const tracks = useAppSelector(selectTracks);
   const loading = useAppSelector(selectTracksLoading);
 
-  const [link, setLink] = useState<string | null>(null);
+  const [trackObj, setTrackObj] = useState<ITrack | null>(null);
 
   useEffect(() => {
     dispatch(fetchTracks(id));
   }, [dispatch, id]);
 
-  let content: React.ReactNode = <Spinner />;
+  let content: React.ReactNode | null = null;
+  
+  if (loading) {
+    content = <Spinner />;
+  }
 
-  if (!loading && tracks) {
+  if (tracks) {
     content = (
       <div className="container tracks__wrap">
         <h2 className="tracks__title-artist">Artist: {tracks.artist.name}</h2>
@@ -29,15 +34,15 @@ const TrackList = () => {
 
         <ul className="tracklist">
           {tracks.tracks.map(track => (
-            <TrackItem key={track._id} track={track} setLink={setLink} link={link} />
+            <TrackItem key={track._id} track={track} setTrackObj={setTrackObj} trackObj={trackObj} />
           ))}
         </ul>
 
-        {link &&
+        {trackObj && trackObj.trackUrl &&
           <iframe
             width="560"
             height="315"
-            src={`https://www.youtube.com/embed/${link}?si=R_UhysoS50R3Gcvh&autoplay=1&mute=1`}
+            src={`https://www.youtube.com/embed/${trackObj.trackUrl}?si=R_UhysoS50R3Gcvh&autoplay=1&mute=1`}
             title="YouTube video player"
             style={{display: 'block', border: 'none', margin: '0 auto'}}
             allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

@@ -4,8 +4,8 @@ import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { fetchAlbumsByArtist } from '../../store/albumsThunk';
 import AlbumItem from './AlbumItem';
 import { selectAlbums, selectAlbumsLoading } from '../../store/albumsSlice';
-import './Albums.css';
 import Spinner from '../../components/Spinner/Spinner';
+import './Albums.css';
 
 const Albums = () => {
   const { id } = useParams() as {id: string};
@@ -17,9 +17,13 @@ const Albums = () => {
     dispatch(fetchAlbumsByArtist(id));
   }, [dispatch, id]);
 
-  let content: React.ReactNode = <Spinner />;
+  let content: React.ReactNode | null = null;
 
-  if (!loading && albums) {
+  if (loading) {
+    content = <Spinner />;
+  }
+
+  if (albums) {
     content = (
       <div className="container">
 

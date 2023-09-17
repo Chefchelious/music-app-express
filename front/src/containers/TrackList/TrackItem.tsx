@@ -6,19 +6,19 @@ import { addTrackToTrackHistory } from '../../store/trackHistoryThunk';
 
 interface IProps {
   track: ITrack;
-  setLink: (value: string | null) => void;
-  link: string | null;
+  setTrackObj: (value: ITrack | null) => void;
+  trackObj: ITrack | null;
 }
 
-const TrackItem: React.FC<IProps> = ({track, setLink, link}) => {
+const TrackItem: React.FC<IProps> = ({track, setTrackObj, trackObj}) => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
 
   const handlePlayButtonClick = async () => {
-    if (link === track.trackUrl) {
-      setLink(null);
+    if (trackObj?._id === track._id) {
+      setTrackObj(null);
     } else {
-      setLink(track.trackUrl);
+      setTrackObj(track);
       await dispatch(addTrackToTrackHistory(track._id));
     }
   };
@@ -28,7 +28,11 @@ const TrackItem: React.FC<IProps> = ({track, setLink, link}) => {
       <div className="tracklist__item_left-col">
         {user &&
           <button
-            className={link && link === track.trackUrl ? "track__play-btn_pause" : "tracklist__play-btn"}
+            className={
+              trackObj &&
+              trackObj.trackUrl &&
+              trackObj.trackUrl === track.trackUrl ? "track__play-btn_pause" : "tracklist__play-btn"
+            }
             onClick={handlePlayButtonClick}
           />
         }
