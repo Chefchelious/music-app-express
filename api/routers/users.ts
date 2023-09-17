@@ -29,7 +29,7 @@ usersRouter.post('/sessions', async (req, res, next) => {
     const user = await User.findOne({username: req.body.username});
 
     if (!user) {
-      return res.status(401).send({error: 'Wrong password or username!'});
+      return res.status(400).send({error: 'Wrong password or username!'});
     }
 
     const isMatch = await user.checkPassword(req.body.password);
@@ -41,7 +41,7 @@ usersRouter.post('/sessions', async (req, res, next) => {
     user.generateToken();
     await user.save();
 
-    return res.send({message: 'Username and password correct!'});
+    return res.send({message: 'Username and password correct!', user});
   } catch (e) {
     return next(e);
   }
