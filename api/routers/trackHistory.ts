@@ -12,6 +12,12 @@ trackHistoryRouter.post('/', auth, async (req, res, next) => {
   try {
     const user = (req as IRequestWithUser).user;
 
+    const track = await Track.findById(req.body.track);
+
+    if (!track) {
+      return res.status(404).send({error: 'Track not found'});
+    }
+
     const trackHistory = new TrackHistory({
       user: user._id,
       track: req.body.track,
