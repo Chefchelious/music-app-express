@@ -15,7 +15,7 @@ const TrackItem: React.FC<IProps> = ({track, setTrackObj, trackObj}) => {
   const user = useAppSelector(selectUser);
 
   const handlePlayButtonClick = async () => {
-    if (trackObj?._id === track._id) {
+    if (trackObj?._id === track._id && trackObj.trackUrl) {
       setTrackObj(null);
     } else {
       setTrackObj(track);

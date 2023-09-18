@@ -13,15 +13,13 @@ const TrackHistory = () => {
   const trackHistory = useAppSelector(selectTrackHistory);
   const loading = useAppSelector(selectTrackHistoryLoading);
 
-  const searchParams = new URLSearchParams(document.location.search);
-  const userParams = searchParams.get('user');
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user === null || !userParams) {
+    if (user === null) {
       return navigate('/');
     }
-  }, [navigate, userParams, user]);
+  }, [navigate, user]);
 
   useEffect(() => {
     dispatch(fetchTrackHistory());

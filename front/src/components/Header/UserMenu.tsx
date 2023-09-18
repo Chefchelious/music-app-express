@@ -19,7 +19,7 @@ const UserMenu: React.FC<Props> = ({user}) => {
 
   return (
     <>
-      <Button component={NavLink} to={`/track_history?user=${user._id}`} color="inherit">
+      <Button component={NavLink} to="/track_history" color="inherit">
         Track History
       </Button>
 
