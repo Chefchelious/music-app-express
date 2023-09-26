@@ -3,6 +3,7 @@ import Artist from "../models/Artist";
 import {imagesUpload} from "../multer";
 import mongoose from "mongoose";
 import {IArtist} from "../types";
+import auth, {IRequestWithUser} from "../middlewares/auth";
 
 const artistsRouter = express.Router();
 
@@ -16,12 +17,15 @@ artistsRouter.get('/', async (_, res) => {
   }
 });
 
-artistsRouter.post('/', imagesUpload.single('image') , async (req, res, next) => {
+artistsRouter.post('/', auth, imagesUpload.single('image') , async (req, res, next) => {
     try {
+      const user = (req as IRequestWithUser).user;
+
       const artistData: IArtist = {
         name: req.body.name,
         image: req.file ? req.file.filename : null,
         info: req.body.info,
+        user: user._id,
       };
       const artist = new Artist(artistData);
       await artist.save();

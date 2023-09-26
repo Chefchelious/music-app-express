@@ -4,6 +4,7 @@ import Album from "../models/Album";
 import mongoose from "mongoose";
 import {ObjectId} from "mongodb";
 import {ITrack} from "../types";
+import auth, {IRequestWithUser} from "../middlewares/auth";
 
 const tracksRouter = express.Router();
 
@@ -45,8 +46,9 @@ tracksRouter.get('/', async (req, res) => {
   }
 });
 
-tracksRouter.post('/', async (req, res, next) => {
+tracksRouter.post('/', auth, async (req, res, next) => {
   try {
+    const user = (req as IRequestWithUser).user;
 
     const trackDataData: ITrack = {
       album: req.body.album,
@@ -54,6 +56,7 @@ tracksRouter.post('/', async (req, res, next) => {
       duration: req.body.duration,
       numberInAlbum: req.body.numberInAlbum,
       trackUrl: !req.body.trackUrl || req.body.trackUrl.trim() === '' ? null : req.body.trackUrl,
+      user: user._id,
     };
 
     const trackNumberExist = await Track.findOne(

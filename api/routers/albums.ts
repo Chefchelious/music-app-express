@@ -6,6 +6,7 @@ import { ObjectId } from "mongodb";
 import {IAlbum} from "../types";
 import Track from "../models/Track";
 import Artist from "../models/Artist";
+import auth, {IRequestWithUser} from "../middlewares/auth";
 
 const albumsRouter = express.Router();
 
@@ -65,13 +66,15 @@ albumsRouter.get('/:id', async (req, res) => {
   }
 });
 
-albumsRouter.post('/', imagesUpload.single('image'), async (req, res, next) => {
+albumsRouter.post('/', auth, imagesUpload.single('image'), async (req, res, next) => {
   try {
+    const user = (req as IRequestWithUser).user;
     const albumData: IAlbum = {
       artist: req.body.artist,
       name: req.body.name,
       year: req.body.year,
       image: req.file ? req.file.filename : null,
+      user: user._id,
     };
 
     const album = new Album(albumData);

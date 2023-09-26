@@ -1,9 +1,11 @@
 import mongoose from "mongoose";
+import {ObjectId} from "mongodb";
 
 export interface IArtist {
   name: string;
   image: string | null;
   info: string;
+  user: ObjectId._id;
 }
 
 export interface IAlbum {
@@ -11,6 +13,7 @@ export interface IAlbum {
   name: string;
   year: number;
   image: string | null;
+  user: ObjectId._id;
 }
 
 export interface ITrack {
@@ -19,11 +22,13 @@ export interface ITrack {
   duration: string;
   numberInAlbum: number;
   trackUrl: string | null;
+  user: ObjectId._id;
 }
 
 export interface IUser {
   username: string;
   password: string;
+  role: string;
   token: string;
 }
 

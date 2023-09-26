@@ -9,6 +9,16 @@ const ArtistSchema = new Schema({
   },
   image: String,
   info: String,
+  isPublished: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
+  user: {
+    type:  mongoose.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
 });
 
 const Artist = mongoose.model('Artist', ArtistSchema);

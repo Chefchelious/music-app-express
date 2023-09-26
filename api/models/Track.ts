@@ -24,6 +24,16 @@ const TrackSchema = new mongoose.Schema({
     required: true,
   },
   trackUrl: String,
+  isPublished: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
+  user: {
+    type:  mongoose.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
 });
 
 const Track = mongoose.model('Track', TrackSchema);
