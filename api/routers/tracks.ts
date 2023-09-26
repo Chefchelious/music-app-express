@@ -4,8 +4,8 @@ import Album from "../models/Album";
 import mongoose from "mongoose";
 import {ObjectId} from "mongodb";
 import auth, {IRequestWithUser} from "../middlewares/auth";
-import {ITrack} from "../types";
 import permit from "../middlewares/permit";
+import {ITrack} from "../types";
 
 const tracksRouter = express.Router();
 
@@ -92,6 +92,24 @@ tracksRouter.delete('/:id', auth, permit('admin'), async (req, res) => {
     await Track.findByIdAndDelete(req.params.id);
 
     return res.status(200).send({ message: 'Success' });
+  } catch (e) {
+    return res.sendStatus(500);
+  }
+});
+
+tracksRouter.patch('/:id/togglePublished', auth, permit('admin'), async (req, res) => {
+  try {
+    const track = await Track.findById(req.params.id);
+
+    if (!track) {
+      return res.status(404).send({error: 'album not found'});
+    }
+
+    track.isPublished = !track.isPublished;
+
+    await track.save();
+
+    return res.status(200).send(track);
   } catch (e) {
     return res.sendStatus(500);
   }
