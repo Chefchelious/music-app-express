@@ -23,7 +23,10 @@ const TrackSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  trackUrl: String,
+  trackUrl: {
+    type: String,
+    default: null,
+  },
   isPublished: {
     type: Boolean,
     required: true,
