@@ -3,10 +3,11 @@ import Album from "../models/Album";
 import {imagesUpload} from "../multer";
 import mongoose from "mongoose";
 import { ObjectId } from "mongodb";
-import {IAlbum} from "../types";
 import Track from "../models/Track";
 import Artist from "../models/Artist";
 import auth, {IRequestWithUser} from "../middlewares/auth";
+import permit from "../middlewares/permit";
+import {IAlbum} from "../types";
 
 const albumsRouter = express.Router();
 
@@ -86,6 +87,22 @@ albumsRouter.post('/', auth, imagesUpload.single('image'), async (req, res, next
       return res.status(400).send(e);
     }
     return next(e);
+  }
+});
+
+albumsRouter.delete('/:id', auth, permit('admin'), async (req, res) => {
+  try {
+    const album = await Album.findById(req.params.id);
+
+    if (!album) {
+      return res.status(404).send({error: 'album not found'});
+    }
+
+    await Album.findByIdAndDelete(req.params.id);
+
+    return res.status(200).send({ message: 'Success' });
+  } catch (e) {
+    return res.sendStatus(500);
   }
 });
 

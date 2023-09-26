@@ -3,8 +3,9 @@ import Track from "../models/Track";
 import Album from "../models/Album";
 import mongoose from "mongoose";
 import {ObjectId} from "mongodb";
-import {ITrack} from "../types";
 import auth, {IRequestWithUser} from "../middlewares/auth";
+import {ITrack} from "../types";
+import permit from "../middlewares/permit";
 
 const tracksRouter = express.Router();
 
@@ -77,6 +78,22 @@ tracksRouter.post('/', auth, async (req, res, next) => {
       return res.status(400).send(e);
     }
     return next(e);
+  }
+});
+
+tracksRouter.delete('/:id', auth, permit('admin'), async (req, res) => {
+  try {
+    const track = await Track.findById(req.params.id);
+
+    if (!track) {
+      return res.status(404).send({error: 'track not found'});
+    }
+
+    await Track.findByIdAndDelete(req.params.id);
+
+    return res.status(200).send({ message: 'Success' });
+  } catch (e) {
+    return res.sendStatus(500);
   }
 });
 

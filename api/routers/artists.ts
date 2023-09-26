@@ -4,6 +4,7 @@ import {imagesUpload} from "../multer";
 import mongoose from "mongoose";
 import {IArtist} from "../types";
 import auth, {IRequestWithUser} from "../middlewares/auth";
+import permit from "../middlewares/permit";
 
 const artistsRouter = express.Router();
 
@@ -37,6 +38,22 @@ artistsRouter.post('/', auth, imagesUpload.single('image') , async (req, res, ne
       }
       next(e);
     }
+});
+
+artistsRouter.delete('/:id', auth, permit('admin'), async (req, res) => {
+  try {
+    const artist = await Artist.findById(req.params.id);
+
+    if (!artist) {
+      return res.status(404).send({error: 'artist not found'});
+    }
+
+    await Artist.findByIdAndDelete(req.params.id);
+
+    return res.status(200).send({ message: 'Success' });
+  } catch (e) {
+    return res.sendStatus(500);
+  }
 });
 
 export default artistsRouter;
