@@ -38,7 +38,10 @@ const TrackItem: React.FC<IProps> = ({track, setTrackObj, trackObj}) => {
         }
         <span className="tracklist__track-name">{track.numberInAlbum}. {track.name}</span>
       </div>
-      <span>{track.duration}</span>
+      <div style={{display: 'flex', alignItems: 'center', gap: '20px'}}>
+        <span>{track.duration}</span>
+        { !track.isPublished && <span>Не опубликованно</span> }
+      </div>
     </li>
   );
 };

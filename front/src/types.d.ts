@@ -13,6 +13,8 @@ export interface IAlbum {
   image: string | null;
   year: number;
   totalTracks: number;
+  user: string;
+  isPublished: boolean;
 }
 
 export interface IAlbumsByArtist {
@@ -27,6 +29,8 @@ export interface ITrack {
   duration: string;
   numberInAlbum: number;
   trackUrl: string | null;
+  user: string;
+  isPublished: boolean;
 }
 
 export interface ITracksByAlbum {

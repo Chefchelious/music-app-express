@@ -24,6 +24,7 @@ const AlbumItem: React.FC<IProps> = ({album}) => {
         <p><strong>{album.name}</strong></p>
         <p>Год выхода: {album.year}</p>
         <p>Треков: {album.totalTracks}</p>
+        {!album.isPublished && <p>Не опубликованно</p>}
       </div>
     </Link>
   );

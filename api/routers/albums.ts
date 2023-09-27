@@ -33,6 +33,8 @@ albumsRouter.get('/', async (req, res) => {
           name: album.name,
           image: album.image,
           year: album.year,
+          isPublished: album.isPublished,
+          user: album.user,
           totalTracks: tracksByAlbum.length,
         };
       });

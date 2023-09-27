@@ -5,14 +5,16 @@ import { selectTracks, selectTracksLoading } from '../../store/tracksSlice';
 import { fetchTracks } from '../../store/tracksThunk';
 import Spinner from '../../components/Spinner/Spinner';
 import TrackItem from './TrackItem';
-import { ITrack } from '../../types';
 import './TrackList.css';
+import {selectUser} from "../../store/usersSlice";
+import { ITrack } from '../../types';
 
 const TrackList = () => {
   const dispatch = useAppDispatch();
   const { id } = useParams() as {id: string};
   const tracks = useAppSelector(selectTracks);
   const loading = useAppSelector(selectTracksLoading);
+  const user = useAppSelector(selectUser);
 
   const [trackObj, setTrackObj] = useState<ITrack | null>(null);
 
@@ -33,9 +35,23 @@ const TrackList = () => {
         <h3 className="tracks__title-album">Album: {tracks.title}</h3>
 
         <ul className="tracklist">
-          {tracks.tracks.map(track => (
-            <TrackItem key={track._id} track={track} setTrackObj={setTrackObj} trackObj={trackObj} />
-          ))}
+          {/*{tracks.tracks.map(track => (*/}
+          {/*  <TrackItem key={track._id} track={track} setTrackObj={setTrackObj} trackObj={trackObj} />*/}
+          {/*))}*/}
+          {tracks.tracks.map(track => {
+            if (track.isPublished) {
+              return <TrackItem key={track._id} track={track} setTrackObj={setTrackObj} trackObj={trackObj} />;
+            }
+
+            if (user && user._id === track.user && !track.isPublished) {
+              return <TrackItem key={track._id} track={track} setTrackObj={setTrackObj} trackObj={trackObj} />;
+            }
+
+            if (user && user.role === 'admin') {
+              return  <TrackItem key={track._id} track={track} setTrackObj={setTrackObj} trackObj={trackObj} />;
+            }
+            return null;
+          })}
         </ul>
 
         {trackObj && trackObj.trackUrl &&
