@@ -55,7 +55,7 @@ tracksRouter.post('/', auth, async (req, res, next) => {
       album: req.body.album,
       name: req.body.name,
       duration: req.body.duration,
-      numberInAlbum: req.body.numberInAlbum,
+      numberInAlbum: parseFloat(req.body.numberInAlbum),
       trackUrl: !req.body.trackUrl || req.body.trackUrl.trim() === '' ? null : req.body.trackUrl,
       user: user._id,
     };

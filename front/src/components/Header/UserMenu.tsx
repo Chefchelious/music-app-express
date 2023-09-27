@@ -48,6 +48,18 @@ const UserMenu: React.FC<Props> = ({user}) => {
         >
           Add artist
         </MenuItem>
+        <MenuItem
+          component={Link} to="/new-album"
+          onClick={handleClose}
+        >
+          Add album
+        </MenuItem>
+        <MenuItem
+          component={Link} to="/new-track"
+          onClick={handleClose}
+        >
+          Add track
+        </MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </>

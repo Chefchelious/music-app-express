@@ -11,6 +11,8 @@ import CreateArtist from './containers/CreateArtist/CreateArtist';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import { useAppSelector } from './app/hook';
 import { selectUser } from './store/usersSlice';
+import CreateAlbum from './containers/CreateAlbum/CreateAlbum';
+import CreateTrack from './containers/CreateTrack/CreateTrack';
 
 const App = () => {
   const user = useAppSelector(selectUser);
@@ -34,6 +36,18 @@ const App = () => {
         <Route path="/new-artist" element={(
           <ProtectedRoute isAllowed={!!user}>
             <CreateArtist />
+          </ProtectedRoute>
+        )} />
+
+        <Route path="/new-album" element={(
+          <ProtectedRoute isAllowed={!!user}>
+            <CreateAlbum />
+          </ProtectedRoute>
+        )} />
+
+        <Route path="/new-track" element={(
+          <ProtectedRoute isAllowed={!!user}>
+            <CreateTrack />
           </ProtectedRoute>
         )} />
 
