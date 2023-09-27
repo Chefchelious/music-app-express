@@ -1,5 +1,6 @@
-import mongoose from "mongoose";
+import mongoose, {HydratedDocument} from "mongoose";
 import Album from "./Album";
+import {ITrack} from "../types";
 
 const TrackSchema = new mongoose.Schema({
   name: {
@@ -21,7 +22,16 @@ const TrackSchema = new mongoose.Schema({
   },
   numberInAlbum: {
     type: Number,
+    min: 1,
     required: true,
+    validate: {
+      validator: async function (this: HydratedDocument<ITrack>): Promise<Boolean> {
+        const existNumberInAlbum = await Track.findOne({ album: this.album,  numberInAlbum: this.numberInAlbum });
+
+        return !existNumberInAlbum;
+      },
+      message: 'Track with the same number already exists in this album!!',
+    },
   },
   trackUrl: {
     type: String,

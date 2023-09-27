@@ -3,6 +3,8 @@ export interface IArtist {
   name: string;
   image: string | null;
   info: string;
+  user: string;
+  isPublished: boolean;
 }
 
 export interface IAlbum {
@@ -47,6 +49,7 @@ export interface IUser {
   _id: string;
   username: string;
   token: string;
+  role: string;
 }
 
 export interface RegisterResponse {

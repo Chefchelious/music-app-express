@@ -8,6 +8,10 @@ export interface IArtist {
   user: ObjectId._id;
 }
 
+export interface IArtistWithPub extends IArtist {
+  isPublished: boolean;
+}
+
 export interface IAlbum {
   artist: string;
   name: string;

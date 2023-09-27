@@ -51,7 +51,7 @@ tracksRouter.post('/', auth, async (req, res, next) => {
   try {
     const user = (req as IRequestWithUser).user;
 
-    const trackDataData: ITrack = {
+    const trackData: ITrack = {
       album: req.body.album,
       name: req.body.name,
       duration: req.body.duration,
@@ -60,15 +60,7 @@ tracksRouter.post('/', auth, async (req, res, next) => {
       user: user._id,
     };
 
-    const trackNumberExist = await Track.findOne(
-      {album: trackDataData.album, numberInAlbum: trackDataData.numberInAlbum}
-    );
-
-    if (trackNumberExist) {
-      return res.status(400).send({error: 'Track with the same number already exists in this album!'});
-    }
-
-    const track = new Track(trackDataData);
+    const track = new Track(trackData);
 
     await track.save();
 

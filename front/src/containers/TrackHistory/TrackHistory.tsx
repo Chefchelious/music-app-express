@@ -17,7 +17,7 @@ const TrackHistory = () => {
 
   useEffect(() => {
     if (user === null) {
-      return navigate('/');
+      return navigate('/login');
     }
   }, [navigate, user]);
 

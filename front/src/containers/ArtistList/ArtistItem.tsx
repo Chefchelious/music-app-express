@@ -22,6 +22,7 @@ const ArtistItem: React.FC<IProps> = ({artist}) => {
         </div>
       }
       <span><strong>{artist.name}</strong></span>
+      { !artist.isPublished && <div>Не опубликовано</div>}
     </Link>
   );
 };
