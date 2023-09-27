@@ -19,11 +19,6 @@ const ArtistList = () => {
   }, [dispatch]);
 
   return loading ? <Spinner /> : (
-    // <div className="container artists">
-    //   {artists.map(artist => (
-    //     <ArtistItem key={artist._id} artist={artist} />
-    //   ))}
-    // </div>
     <div className="container artists">
       {artists.map(artist => {
         if (artist.isPublished) {

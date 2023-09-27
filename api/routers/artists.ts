@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import auth, {IRequestWithUser} from "../middlewares/auth";
 import permit from "../middlewares/permit";
 import {IArtist} from "../types";
+import Album from "../models/Album";
 
 const artistsRouter = express.Router();
 
@@ -40,17 +41,18 @@ artistsRouter.post('/', auth, imagesUpload.single('image') , async (req, res, ne
     }
 });
 
-artistsRouter.delete('/:id', auth, permit('admin', 'user'), async (req, res) => {
+artistsRouter.delete('/:id', auth, permit('admin'), async (req, res) => {
   try {
-    const user = (req as IRequestWithUser).user;
     const artist = await Artist.findById(req.params.id);
 
     if (!artist) {
       return res.status(404).send({error: 'artist not found'});
     }
 
-    if (artist.user.toString() !== user._id.toString() && artist.isPublished) {
-      return res.status(403).send({ message: 'Permission denied' });
+    const usageInAlbums = await Album.findOne({ artist: req.params.id });
+
+    if (usageInAlbums) {
+      return res.status(403).send({ error: 'Deletion denied. This artist has albums!' });
     }
 
     await Artist.findByIdAndDelete(req.params.id);

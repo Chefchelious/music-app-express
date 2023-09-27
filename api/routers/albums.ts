@@ -98,6 +98,12 @@ albumsRouter.delete('/:id', auth, permit('admin'), async (req, res) => {
       return res.status(404).send({error: 'album not found'});
     }
 
+    const usageInTracks = await Track.findOne({ album: req.params.id });
+
+    if (usageInTracks) {
+      return res.status(403).send({ error: 'Deletion denied. There are tracks in this album!' });
+    }
+
     await Album.findByIdAndDelete(req.params.id);
 
     return res.status(200).send({ message: 'Success' });

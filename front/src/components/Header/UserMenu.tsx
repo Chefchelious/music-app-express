@@ -2,12 +2,17 @@ import React, { useState } from 'react';
 import { Button, Menu, MenuItem } from '@mui/material';
 import { IUser } from '../../types';
 import { Link as NavLink } from 'react-router-dom';
+import { useAppDispatch } from '../../app/hook';
+import { logout } from '../../store/usersThunk';
 
 interface Props {
   user: IUser;
 }
 
 const UserMenu: React.FC<Props> = ({user}) => {
+  const dispatch = useAppDispatch();
+  const handleLogout = () => dispatch(logout());
+
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -37,7 +42,7 @@ const UserMenu: React.FC<Props> = ({user}) => {
       >
         <MenuItem>Profile</MenuItem>
         <MenuItem>My account</MenuItem>
-        <MenuItem>Logout</MenuItem>
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </>
   );
