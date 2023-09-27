@@ -79,3 +79,9 @@ export interface ITrackHistory {
   artist: string;
   datetime: string;
 }
+
+export interface IArtistMutation {
+  name: string;
+  info: string
+  image: File | null;
+}

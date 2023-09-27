@@ -7,8 +7,14 @@ import TrackList from './containers/TrackList/TrackList';
 import Register from './containers/Register/Register';
 import Login from './containers/Login/Login';
 import TrackHistory from './containers/TrackHistory/TrackHistory';
+import CreateArtist from './containers/CreateArtist/CreateArtist';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+import { useAppSelector } from './app/hook';
+import { selectUser } from './store/usersSlice';
 
 const App = () => {
+  const user = useAppSelector(selectUser);
+
   return (
     <>
       <Header />
@@ -24,6 +30,12 @@ const App = () => {
         <Route path="albums/:id/tracks" element={<TrackList />} />
 
         <Route path="/track_history" element={<TrackHistory />} />
+
+        <Route path="/new-artist" element={(
+          <ProtectedRoute isAllowed={!!user}>
+            <CreateArtist />
+          </ProtectedRoute>
+        )} />
 
         <Route path="*" element={<h1>Not Found</h1>} />
       </Routes>

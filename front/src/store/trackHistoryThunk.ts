@@ -5,14 +5,9 @@ import axiosApi from '../axiosApi';
 
 export const fetchTrackHistory = createAsyncThunk<ITrackHistory[], undefined, { state: RootState }>(
   'trackHistory/fetchByUser',
-  async (_, thunkAPI) => {
-    const token = thunkAPI.getState().users.user?.token;
+  async () => {
 
-    const { data } = await axiosApi('/track_history', {
-      headers: {
-        'Authorization': token,
-      },
-    });
+    const { data } = await axiosApi('/track_history');
 
     return data;
   },
@@ -20,13 +15,8 @@ export const fetchTrackHistory = createAsyncThunk<ITrackHistory[], undefined, { 
 
 export const addTrackToTrackHistory = createAsyncThunk<void, string, { state: RootState }>(
   'trackHistory/addTrack',
-  async (trackID, thunkAPI) => {
-    const token = thunkAPI.getState().users.user?.token;
+  async (trackID) => {
 
-    await axiosApi.post('/track_history', {track: trackID}, {
-      headers: {
-        'Authorization': token,
-      },
-    });
+    await axiosApi.post('/track_history', {track: trackID});
   },
 );

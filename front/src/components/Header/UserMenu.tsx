@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Menu, MenuItem } from '@mui/material';
 import { IUser } from '../../types';
-import { Link as NavLink } from 'react-router-dom';
+import { Link, Link as NavLink } from 'react-router-dom';
 import { useAppDispatch } from '../../app/hook';
 import { logout } from '../../store/usersThunk';
 
@@ -42,6 +42,12 @@ const UserMenu: React.FC<Props> = ({user}) => {
       >
         <MenuItem>Profile</MenuItem>
         <MenuItem>My account</MenuItem>
+        <MenuItem
+          component={Link} to="/new-artist"
+          onClick={handleClose}
+        >
+          Add artist
+        </MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </>
