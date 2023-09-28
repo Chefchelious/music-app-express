@@ -63,9 +63,12 @@ const TrackItem: React.FC<IProps> = ({track, setTrackObj, trackObj}) => {
         {user && user.role === 'admin' && (
           <div style={{ display: 'flex', alignItems: 'center'}}>
             {!track.isPublished && <Button color="secondary" onClick={handlePublishedTrack}>publish</Button>}
-            <Button onClick={handleDeleteTrack}>delete</Button>
           </div>
         )}
+
+        { user && (user.role === 'admin' || (user._id === track.user && !track.isPublished )) &&
+          <Button onClick={handleDeleteTrack}>delete</Button>
+        }
       </div>
     </li>
   );

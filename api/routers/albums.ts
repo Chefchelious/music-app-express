@@ -103,7 +103,7 @@ albumsRouter.delete('/:id', auth, permit('admin'), async (req, res) => {
     const usageInTracks = await Track.findOne({ album: req.params.id });
 
     if (usageInTracks) {
-      return res.status(409).send({ error: 'Deletion denied. There are tracks in this album!' });
+      return res.status(403).send({ error: 'Deletion denied. There are tracks in this album!' });
     }
 
     await Album.findByIdAndDelete(req.params.id);

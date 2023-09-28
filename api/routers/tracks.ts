@@ -73,17 +73,29 @@ tracksRouter.post('/', auth, async (req, res, next) => {
   }
 });
 
-tracksRouter.delete('/:id', auth, permit('admin'), async (req, res) => {
+tracksRouter.delete('/:id', auth, async (req, res) => {
   try {
+    const user = (req as IRequestWithUser).user;
+
     const track = await Track.findById(req.params.id);
 
     if (!track) {
       return res.status(404).send({error: 'track not found'});
     }
 
-    await Track.findByIdAndDelete(req.params.id);
+    if (user.role === 'admin') {
+      await Track.findByIdAndDelete(req.params.id);
 
-    return res.status(200).send({ message: 'Success' });
+      return res.status(200).send({ message: 'Success' });
+    }
+
+    if (user._id.toString() === track.user.toString()) {
+      await Track.findByIdAndDelete(req.params.id);
+
+      return res.status(200).send({ message: 'Success' });
+    }
+
+    return res.status(403).send({ message: 'Permission denied' });
   } catch (e) {
     return res.sendStatus(500);
   }
