@@ -19,7 +19,7 @@
 
 .album-card__img-wrap {
   width: 164px;
-  margin-bottom: 20px;
+  margin: 0 auto 20px;
   border-radius: 20px;
   overflow: hidden;
   background-color: white;

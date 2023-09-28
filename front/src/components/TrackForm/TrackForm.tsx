@@ -36,6 +36,7 @@ const TrackForm = () => {
   useEffect(() => {
       if (artist) {
         dispatch(fetchAlbumsByArtist(artist));
+        setState(prevState => ({...prevState, album : ''}));
       }
   }, [dispatch, artist]);
 

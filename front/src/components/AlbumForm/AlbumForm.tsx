@@ -10,6 +10,7 @@ import FileInput from '../FileInput/FileInput';
 import { selectCreateAlbumLoading } from '../../store/albumsSlice';
 import { createAlbum } from '../../store/albumsThunk';
 import { IAlbumMutation } from '../../types';
+import { formWorkInput } from '../../constants';
 
 const AlbumForm = () => {
   const dispatch = useAppDispatch();
@@ -51,7 +52,7 @@ const AlbumForm = () => {
   };
 
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setState(prevState => ({...prevState, [e.target.name]: e.target.value}));
+    formWorkInput(setState, e);
   };
 
   return !artists.length ? <h3>Page updating, sorry...</h3> : (
