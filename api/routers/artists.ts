@@ -52,7 +52,7 @@ artistsRouter.delete('/:id', auth, permit('admin'), async (req, res) => {
     const usageInAlbums = await Album.findOne({ artist: req.params.id });
 
     if (usageInAlbums) {
-      return res.status(403).send({ error: 'Deletion denied. This artist has albums!' });
+      return res.status(409).send({ error: 'Deletion denied. This artist has albums!' });
     }
 
     await Artist.findByIdAndDelete(req.params.id);
