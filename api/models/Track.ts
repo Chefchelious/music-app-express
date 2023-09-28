@@ -26,6 +26,9 @@ const TrackSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: async function (this: HydratedDocument<ITrack>): Promise<Boolean> {
+        if (!this.isModified('numberInAlbum')) {
+          return true;
+        }
         const existNumberInAlbum = await Track.findOne({ album: this.album,  numberInAlbum: this.numberInAlbum });
 
         return !existNumberInAlbum;

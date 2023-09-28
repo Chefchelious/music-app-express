@@ -94,7 +94,7 @@ tracksRouter.patch('/:id/togglePublished', auth, permit('admin'), async (req, re
     const track = await Track.findById(req.params.id);
 
     if (!track) {
-      return res.status(404).send({error: 'album not found'});
+      return res.status(404).send({error: 'track not found'});
     }
 
     track.isPublished = !track.isPublished;
@@ -106,6 +106,5 @@ tracksRouter.patch('/:id/togglePublished', auth, permit('admin'), async (req, re
     return res.sendStatus(500);
   }
 });
-
 
 export default tracksRouter;

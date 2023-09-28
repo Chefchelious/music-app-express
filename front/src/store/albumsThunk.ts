@@ -29,3 +29,17 @@ export const createAlbum = createAsyncThunk<void, IAlbumMutation>(
      await axiosApi.post('/albums', formData);
   },
 );
+
+export const toggleAlbumPublished = createAsyncThunk<void, string>(
+  'albums/published',
+  async (id) => {
+    await axiosApi.patch(`/albums/${id}/togglePublished`);
+  },
+);
+
+export const deleteAlbum = createAsyncThunk<void, string>(
+  'albums/deleteOne',
+  async (id) => {
+    await axiosApi.delete(`/albums/${id}`);
+  },
+);

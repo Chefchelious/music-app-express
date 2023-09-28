@@ -1,18 +1,22 @@
 import { ITracksByAlbum } from '../types';
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../app/store';
-import {createTrack, fetchTracks} from './tracksThunk';
+import {createTrack, deleteTrack, fetchTracks, toggleTrackPublished} from './tracksThunk';
 
 interface TracksState {
   items: ITracksByAlbum | null;
   fetchLoading: boolean;
   createLoading: boolean;
+  publishedLoading: boolean;
+  deleteLoading: boolean;
 }
 
 const initialState: TracksState = {
   items: null,
   fetchLoading: false,
   createLoading: false,
+  publishedLoading: false,
+  deleteLoading: false,
 };
 
 const tracksSlice = createSlice({
@@ -41,6 +45,28 @@ const tracksSlice = createSlice({
       })
       .addCase(createTrack.rejected, state => {
         state.createLoading = false;
+      });
+
+    builder
+      .addCase(toggleTrackPublished.pending, state => {
+        state.publishedLoading = true;
+      })
+      .addCase(toggleTrackPublished.fulfilled, (state) => {
+        state.publishedLoading = false;
+      })
+      .addCase(toggleTrackPublished.rejected, state => {
+        state.publishedLoading = false;
+      });
+
+    builder
+      .addCase(deleteTrack.pending, state => {
+        state.deleteLoading = true;
+      })
+      .addCase(deleteTrack.fulfilled, (state) => {
+        state.deleteLoading = false;
+      })
+      .addCase(deleteTrack.rejected, state => {
+        state.deleteLoading = false;
       });
   },
 });

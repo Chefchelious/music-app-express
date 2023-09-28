@@ -1,18 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../app/store';
-import { createAlbum, fetchAlbumsByArtist } from './albumsThunk';
+import { createAlbum, deleteAlbum, fetchAlbumsByArtist, toggleAlbumPublished } from './albumsThunk';
 import { IAlbumsByArtist } from '../types';
 
 interface AlbumsState {
   items: IAlbumsByArtist | null;
   fetchLoading: boolean;
   createLoading: boolean;
+  publishedLoading: boolean;
+  deleteLading: boolean;
 }
 
 const initialState: AlbumsState = {
   items: null,
   fetchLoading: false,
   createLoading: false,
+  publishedLoading: false,
+  deleteLading: false,
 };
 
 const albumsSlice = createSlice({
@@ -41,6 +45,28 @@ const albumsSlice = createSlice({
       })
       .addCase(createAlbum.rejected, (state) => {
         state.createLoading = false;
+      });
+
+    builder
+      .addCase(toggleAlbumPublished.pending, (state) => {
+        state.publishedLoading = true;
+      })
+      .addCase(toggleAlbumPublished.fulfilled, (state) => {
+        state.publishedLoading = false;
+      })
+      .addCase(toggleAlbumPublished.rejected, (state) => {
+        state.publishedLoading = false;
+      });
+
+    builder
+      .addCase(deleteAlbum.pending, (state) => {
+        state.deleteLading = true;
+      })
+      .addCase(deleteAlbum.fulfilled, (state) => {
+        state.deleteLading = false;
+      })
+      .addCase(deleteAlbum.rejected, (state) => {
+        state.deleteLading = false;
       });
   },
 });

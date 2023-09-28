@@ -3,6 +3,9 @@ import { ITrack } from '../../types';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { selectUser } from '../../store/usersSlice';
 import { addTrackToTrackHistory } from '../../store/trackHistoryThunk';
+import {useParams} from "react-router-dom";
+import {Button} from "@mui/material";
+import {deleteTrack, fetchTracks, toggleTrackPublished} from "../../store/tracksThunk";
 
 interface IProps {
   track: ITrack;
@@ -11,6 +14,7 @@ interface IProps {
 }
 
 const TrackItem: React.FC<IProps> = ({track, setTrackObj, trackObj}) => {
+  const { id } = useParams() as { id: string };
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
 
@@ -20,6 +24,20 @@ const TrackItem: React.FC<IProps> = ({track, setTrackObj, trackObj}) => {
     } else {
       setTrackObj(track);
       await dispatch(addTrackToTrackHistory(track._id));
+    }
+  };
+
+  const handlePublishedTrack = async () => {
+    await dispatch(toggleTrackPublished(track._id));
+    await dispatch(fetchTracks(id));
+  };
+
+  const handleDeleteTrack = async () => {
+    try {
+      await dispatch(deleteTrack(track._id)).unwrap();
+      await dispatch(fetchTracks(id));
+    } catch (e) {
+      alert('something went wrong, maybe there are tracks in the album...');
     }
   };
 
@@ -41,6 +59,13 @@ const TrackItem: React.FC<IProps> = ({track, setTrackObj, trackObj}) => {
       <div style={{display: 'flex', alignItems: 'center', gap: '20px'}}>
         <span>{track.duration}</span>
         { !track.isPublished && <span>Не опубликованно</span> }
+
+        {user && user.role === 'admin' && (
+          <div style={{ display: 'flex', alignItems: 'center'}}>
+            {!track.isPublished && <Button color="secondary" onClick={handlePublishedTrack}>publish</Button>}
+            <Button onClick={handleDeleteTrack}>delete</Button>
+          </div>
+        )}
       </div>
     </li>
   );
