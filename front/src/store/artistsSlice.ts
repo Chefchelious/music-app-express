@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createArtist, fetchArtists } from './artistsThunk';
+import { createArtist, deleteArtist, fetchArtists, toggleArtistPublished } from './artistsThunk';
 import { RootState } from '../app/store';
 import { IArtist, ValidationError } from '../types';
 
@@ -8,6 +8,8 @@ interface ArtistsState {
   fetchLoading: boolean;
   createLoading: boolean;
   createError: ValidationError | null;
+  publishedLoading: boolean;
+  deleteLoading: boolean;
 }
 
 const initialState: ArtistsState = {
@@ -15,6 +17,8 @@ const initialState: ArtistsState = {
   fetchLoading: false,
   createLoading: false,
   createError: null,
+  publishedLoading: false,
+  deleteLoading: false,
 };
 
 const artistsSlice = createSlice({
@@ -46,6 +50,28 @@ const artistsSlice = createSlice({
       .addCase(createArtist.rejected, (state, { payload: error }) => {
         state.createLoading = false;
         state.createError = error || null;
+      });
+
+    builder
+      .addCase(toggleArtistPublished.pending, state => {
+        state.publishedLoading = true;
+      })
+      .addCase(toggleArtistPublished.fulfilled, (state) => {
+        state.publishedLoading = false;
+      })
+      .addCase(toggleArtistPublished.rejected, state => {
+        state.publishedLoading = false;
+      });
+
+    builder
+      .addCase(deleteArtist.pending, state => {
+        state.deleteLoading = true;
+      })
+      .addCase(deleteArtist.fulfilled, (state) => {
+        state.deleteLoading = false;
+      })
+      .addCase(deleteArtist.rejected, state => {
+        state.deleteLoading = false;
       });
   },
 });

@@ -38,3 +38,17 @@ export const createArtist = createAsyncThunk<void, IArtistMutation, { rejectValu
     }
   },
 );
+
+export const toggleArtistPublished = createAsyncThunk<void, string>(
+  'artists/published',
+  async (id) => {
+    await axiosApi.patch(`/artists/${id}/togglePublished`);
+  },
+);
+
+export const deleteArtist = createAsyncThunk<void, string>(
+  'artists/deleteOne',
+  async (id) => {
+    await axiosApi.delete(`/artists/${id}`);
+  },
+);
