@@ -35,9 +35,6 @@ const TrackList = () => {
         <h3 className="tracks__title-album">Album: {tracks.title}</h3>
 
         <ul className="tracklist">
-          {/*{tracks.tracks.map(track => (*/}
-          {/*  <TrackItem key={track._id} track={track} setTrackObj={setTrackObj} trackObj={trackObj} />*/}
-          {/*))}*/}
           {tracks.tracks.map(track => {
             if (track.isPublished) {
               return <TrackItem key={track._id} track={track} setTrackObj={setTrackObj} trackObj={trackObj} />;
