@@ -11,7 +11,7 @@ interface IProps {
   artist: IArtist;
 }
 
-const ArtistItem: React.FC<IProps> = ({artist}) => {
+const ArtistItem: React.FC<IProps> = ({ artist }) => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
 
@@ -31,25 +31,41 @@ const ArtistItem: React.FC<IProps> = ({artist}) => {
       await dispatch(deleteArtist(artist._id)).unwrap();
       await dispatch(fetchArtists());
     } catch (e) {
-      alert('something went wrong, maybe artist has albums...')
+      alert('something went wrong, maybe artist has albums...');
     }
   };
 
   return (
     <div>
       <Link to={`/artists/${artist._id}/albums`} className="artist-card">
-        {image &&
+        {image && (
           <div className="artist-card__img-wrap">
             <img className="artist-card__img" src={image} alt={artist.name} />
           </div>
-        }
-        <div style={{textAlign: 'center'}}> <span><strong>{artist.name}</strong></span></div>
-        { !artist.isPublished && <div>Не опубликовано</div>}
+        )}
+        <div style={{ textAlign: 'center' }}>
+          {' '}
+          <span>
+            <strong>{artist.name}</strong>
+          </span>
+        </div>
+        {!artist.isPublished && <div>Не опубликовано</div>}
       </Link>
 
-      { user && user.role === 'admin' && (
-        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-          { !artist.isPublished && <Button color="secondary" onClick={publishArtist}>publish</Button>}
+      {user && user.role === 'admin' && (
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          {!artist.isPublished && (
+            <Button color="secondary" onClick={publishArtist}>
+              publish
+            </Button>
+          )}
           <Button onClick={handleDeleteArtist}>delete</Button>
         </div>
       )}

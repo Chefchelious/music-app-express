@@ -1,5 +1,14 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import { persistReducer, persistStore, FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE } from 'redux-persist';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import {
+  persistReducer,
+  persistStore,
+  FLUSH,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+  REHYDRATE,
+} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { artistsReducer } from '../store/artistsSlice';
 import { albumsReducer } from '../store/albumsSlice';
@@ -27,7 +36,7 @@ export const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      }
+      },
     }),
 });
 

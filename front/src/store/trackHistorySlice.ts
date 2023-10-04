@@ -21,25 +21,25 @@ const trackHistorySlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchTrackHistory.pending, state => {
+      .addCase(fetchTrackHistory.pending, (state) => {
         state.fetchLoading = true;
       })
       .addCase(fetchTrackHistory.fulfilled, (state, { payload: trackHistory }) => {
         state.fetchLoading = false;
         state.items = trackHistory;
       })
-      .addCase(fetchTrackHistory.rejected, state => {
+      .addCase(fetchTrackHistory.rejected, (state) => {
         state.fetchLoading = false;
       });
 
     builder
-      .addCase(addTrackToTrackHistory.pending, state => {
+      .addCase(addTrackToTrackHistory.pending, (state) => {
         state.addTrackLoading = true;
       })
-      .addCase(addTrackToTrackHistory.fulfilled, state => {
+      .addCase(addTrackToTrackHistory.fulfilled, (state) => {
         state.addTrackLoading = false;
       })
-      .addCase(addTrackToTrackHistory.rejected, state => {
+      .addCase(addTrackToTrackHistory.rejected, (state) => {
         state.addTrackLoading = false;
       });
   },

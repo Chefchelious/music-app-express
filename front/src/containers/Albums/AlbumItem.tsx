@@ -46,7 +46,9 @@ const AlbumItem: React.FC<IProps> = ({ album }) => {
         )}
 
         <div className="album-card__info">
-          <p><strong>{album.name}</strong></p>
+          <p>
+            <strong>{album.name}</strong>
+          </p>
           <p>Год выхода: {album.year}</p>
           <p>Треков: {album.totalTracks}</p>
           {!album.isPublished && <p>Не опубликовано</p>}
@@ -54,8 +56,19 @@ const AlbumItem: React.FC<IProps> = ({ album }) => {
       </Link>
 
       {user && user.role === 'admin' && (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-          {!album.isPublished && <Button color="secondary" onClick={handlePublishedAlbum}>publish</Button>}
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          {!album.isPublished && (
+            <Button color="secondary" onClick={handlePublishedAlbum}>
+              publish
+            </Button>
+          )}
           <Button onClick={handleDeleteAlbum}>delete</Button>
         </div>
       )}

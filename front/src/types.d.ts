@@ -90,7 +90,7 @@ export interface ITrackHistory {
 
 export interface IArtistMutation {
   name: string;
-  info: string
+  info: string;
   image: File | null;
 }
 

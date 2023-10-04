@@ -1,12 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import {ITrackMutation, ITracksByAlbum} from '../types';
+import { ITrackMutation, ITracksByAlbum } from '../types';
 import axiosApi from '../axiosApi';
 
 export const fetchTracks = createAsyncThunk<ITracksByAlbum, string>(
   'tracks/fetchByAlbum',
   async (id) => {
     const { data } = await axiosApi(`/tracks?album=${id}`);
-    
+
     return data;
   },
 );
@@ -25,9 +25,6 @@ export const toggleTrackPublished = createAsyncThunk<void, string>(
   },
 );
 
-export const deleteTrack = createAsyncThunk<void, string>(
-  'tracks/deleteOne',
-  async (id) => {
-    await axiosApi.delete(`/tracks/${id}`);
-  },
-);
+export const deleteTrack = createAsyncThunk<void, string>('tracks/deleteOne', async (id) => {
+  await axiosApi.delete(`/tracks/${id}`);
+});

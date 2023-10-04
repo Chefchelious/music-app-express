@@ -3,11 +3,11 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { Alert, Avatar, Box, Container, Grid, Link, TextField, Typography } from '@mui/material';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
-import {googleLogin, login} from '../../store/usersThunk';
+import { googleLogin, login } from '../../store/usersThunk';
 import { selectLoginError, selectLoginLoading } from '../../store/usersSlice';
 import { LoginMutation } from '../../types';
 import { LoadingButton } from '@mui/lab';
-import {GoogleLogin} from "@react-oauth/google";
+import { GoogleLogin } from '@react-oauth/google';
 
 const Login = () => {
   const dispatch = useAppDispatch();
@@ -21,8 +21,8 @@ const Login = () => {
   });
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const {name, value} = event.target;
-    setState(prevState => ({...prevState, [name]: value}));
+    const { name, value } = event.target;
+    setState((prevState) => ({ ...prevState, [name]: value }));
   };
 
   const submitFormHandler = async (event: React.FormEvent) => {
@@ -51,8 +51,8 @@ const Login = () => {
           alignItems: 'center',
         }}
       >
-        <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
-          <LockOpenIcon/>
+        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <LockOpenIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign in
@@ -73,11 +73,11 @@ const Login = () => {
 
         {error && (
           <Alert severity="error" sx={{ mt: 3, width: '100%' }}>
-            { error.error }
+            {error.error}
           </Alert>
         )}
 
-        <Box component="form" onSubmit={submitFormHandler} sx={{mt: 3}}>
+        <Box component="form" onSubmit={submitFormHandler} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -103,7 +103,7 @@ const Login = () => {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{mt: 3, mb: 2}}
+            sx={{ mt: 3, mb: 2 }}
             loading={loading}
           >
             Sign In

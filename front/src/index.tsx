@@ -9,14 +9,12 @@ import theme from './theme';
 import App from './App';
 import './index.css';
 import { addInterceptors } from './axiosApi';
-import {GoogleOAuthProvider} from "@react-oauth/google";
-import {GOOGLE_CLIENT_ID} from "./constants";
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { GOOGLE_CLIENT_ID } from './constants';
 
 addInterceptors(store);
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
     <Provider store={store}>
@@ -28,5 +26,5 @@ root.render(
         </BrowserRouter>
       </PersistGate>
     </Provider>
-  </GoogleOAuthProvider>
+  </GoogleOAuthProvider>,
 );

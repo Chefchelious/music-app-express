@@ -11,11 +11,11 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header__content container">
-        <Link className="header__logo" to="/">SportikFight</Link>
+        <Link className="header__logo" to="/">
+          SportikFight
+        </Link>
 
-        <div>
-          {user ? <UserMenu user={user} /> : <AnonymousMenu />}
-        </div>
+        <div>{user ? <UserMenu user={user} /> : <AnonymousMenu />}</div>
       </div>
     </header>
   );

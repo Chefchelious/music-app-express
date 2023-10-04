@@ -3,9 +3,9 @@ import { ITrack } from '../../types';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { selectUser } from '../../store/usersSlice';
 import { addTrackToTrackHistory } from '../../store/trackHistoryThunk';
-import {useParams} from "react-router-dom";
-import {Button} from "@mui/material";
-import {deleteTrack, fetchTracks, toggleTrackPublished} from "../../store/tracksThunk";
+import { useParams } from 'react-router-dom';
+import { Button } from '@mui/material';
+import { deleteTrack, fetchTracks, toggleTrackPublished } from '../../store/tracksThunk';
 
 interface IProps {
   track: ITrack;
@@ -13,7 +13,7 @@ interface IProps {
   trackObj: ITrack | null;
 }
 
-const TrackItem: React.FC<IProps> = ({track, setTrackObj, trackObj}) => {
+const TrackItem: React.FC<IProps> = ({ track, setTrackObj, trackObj }) => {
   const { id } = useParams() as { id: string };
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
@@ -44,31 +44,37 @@ const TrackItem: React.FC<IProps> = ({track, setTrackObj, trackObj}) => {
   return (
     <li key={track._id} className="tracklist__item">
       <div className="tracklist__item_left-col">
-        {user &&
+        {user && (
           <button
             className={
-              trackObj &&
-              trackObj.trackUrl &&
-              trackObj.trackUrl === track.trackUrl ? "track__play-btn_pause" : "tracklist__play-btn"
+              trackObj && trackObj.trackUrl && trackObj.trackUrl === track.trackUrl
+                ? 'track__play-btn_pause'
+                : 'tracklist__play-btn'
             }
             onClick={handlePlayButtonClick}
           />
-        }
-        <span className="tracklist__track-name">{track.numberInAlbum}. {track.name}</span>
+        )}
+        <span className="tracklist__track-name">
+          {track.numberInAlbum}. {track.name}
+        </span>
       </div>
-      <div style={{display: 'flex', alignItems: 'center', gap: '20px'}}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
         <span>{track.duration}</span>
-        { !track.isPublished && <span>Не опубликованно</span> }
+        {!track.isPublished && <span>Не опубликованно</span>}
 
         {user && user.role === 'admin' && (
-          <div style={{ display: 'flex', alignItems: 'center'}}>
-            {!track.isPublished && <Button color="secondary" onClick={handlePublishedTrack}>publish</Button>}
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            {!track.isPublished && (
+              <Button color="secondary" onClick={handlePublishedTrack}>
+                publish
+              </Button>
+            )}
           </div>
         )}
 
-        { user && (user.role === 'admin' || (user._id === track.user && !track.isPublished )) &&
+        {user && (user.role === 'admin' || (user._id === track.user && !track.isPublished)) && (
           <Button onClick={handleDeleteTrack}>delete</Button>
-        }
+        )}
       </div>
     </li>
   );

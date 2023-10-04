@@ -33,23 +33,32 @@ const App = () => {
 
         <Route path="/track_history" element={<TrackHistory />} />
 
-        <Route path="/new-artist" element={(
-          <ProtectedRoute isAllowed={!!user}>
-            <CreateArtist />
-          </ProtectedRoute>
-        )} />
+        <Route
+          path="/new-artist"
+          element={
+            <ProtectedRoute isAllowed={!!user}>
+              <CreateArtist />
+            </ProtectedRoute>
+          }
+        />
 
-        <Route path="/new-album" element={(
-          <ProtectedRoute isAllowed={!!user}>
-            <CreateAlbum />
-          </ProtectedRoute>
-        )} />
+        <Route
+          path="/new-album"
+          element={
+            <ProtectedRoute isAllowed={!!user}>
+              <CreateAlbum />
+            </ProtectedRoute>
+          }
+        />
 
-        <Route path="/new-track" element={(
-          <ProtectedRoute isAllowed={!!user}>
-            <CreateTrack />
-          </ProtectedRoute>
-        )} />
+        <Route
+          path="/new-track"
+          element={
+            <ProtectedRoute isAllowed={!!user}>
+              <CreateTrack />
+            </ProtectedRoute>
+          }
+        />
 
         <Route path="*" element={<h1>Not Found</h1>} />
       </Routes>

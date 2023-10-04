@@ -11,25 +11,26 @@ const ArtistList = () => {
   const dispatch = useAppDispatch();
   const artists = useAppSelector(selectArtists);
   const loading = useAppSelector(selectArtistsLoading);
-
   const user = useAppSelector(selectUser);
 
   useEffect(() => {
     dispatch(fetchArtists());
   }, [dispatch]);
 
-  return loading ? <Spinner/> : (
+  return loading ? (
+    <Spinner />
+  ) : (
     <div className="container artists">
-      {artists.map(artist => {
+      {artists.map((artist) => {
         if (artist.isPublished) {
-          return <ArtistItem key={artist._id} artist={artist}/>;
+          return <ArtistItem key={artist._id} artist={artist} />;
         }
         if (user && user._id === artist.user && !artist.isPublished) {
-          return <ArtistItem key={artist._id} artist={artist}/>;
+          return <ArtistItem key={artist._id} artist={artist} />;
         }
 
         if (user && user.role === 'admin') {
-          return <ArtistItem key={artist._id} artist={artist}/>;
+          return <ArtistItem key={artist._id} artist={artist} />;
         }
         return null;
       })}

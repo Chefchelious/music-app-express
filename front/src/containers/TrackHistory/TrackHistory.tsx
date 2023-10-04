@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import {  useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { selectUser } from '../../store/usersSlice';
 import { fetchTrackHistory } from '../../store/trackHistoryThunk';
@@ -25,11 +25,12 @@ const TrackHistory = () => {
     dispatch(fetchTrackHistory());
   }, [dispatch]);
 
-
-  return loading ? <Spinner /> : (
+  return loading ? (
+    <Spinner />
+  ) : (
     <div className="container">
-      <ul style={{maxWidth: '600px', margin: '0 auto'}}>
-        {trackHistory.map(t => (
+      <ul style={{ maxWidth: '600px', margin: '0 auto' }}>
+        {trackHistory.map((t) => (
           <li
             key={t._id}
             style={{
@@ -37,10 +38,12 @@ const TrackHistory = () => {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              gap: '30px'
-          }}
+              gap: '30px',
+            }}
           >
-            <span>{t.artist} - {t.track}</span>
+            <span>
+              {t.artist} - {t.track}
+            </span>
             <span>at: {dayjs(t.datetime).format('DD.MM.YYYY HH:mm')}</span>
           </li>
         ))}

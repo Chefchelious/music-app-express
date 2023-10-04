@@ -9,8 +9,8 @@ import { fetchArtists } from '../../store/artistsThunk';
 import { selectArtists } from '../../store/artistsSlice';
 import { fetchAlbumsByArtist } from '../../store/albumsThunk';
 import { selectAlbums } from '../../store/albumsSlice';
-import {selectCreateTrackLoading} from "../../store/tracksSlice";
-import {createTrack} from "../../store/tracksThunk";
+import { selectCreateTrackLoading } from '../../store/tracksSlice';
+import { createTrack } from '../../store/tracksThunk';
 
 const TrackForm = () => {
   const dispatch = useAppDispatch();
@@ -34,10 +34,10 @@ const TrackForm = () => {
   }, [dispatch]);
 
   useEffect(() => {
-      if (artist) {
-        dispatch(fetchAlbumsByArtist(artist));
-        setState(prevState => ({...prevState, album : ''}));
-      }
+    if (artist) {
+      dispatch(fetchAlbumsByArtist(artist));
+      setState((prevState) => ({ ...prevState, album: '' }));
+    }
   }, [dispatch, artist]);
 
   const onSubmit = async (e: React.FormEvent) => {
@@ -52,19 +52,16 @@ const TrackForm = () => {
   };
 
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setState(prevState => ({...prevState, [e.target.name]: e.target.value}));
+    setState((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
   };
 
   return (
-    <form
-      autoComplete="off"
-      onSubmit={onSubmit}
-    >
+    <form autoComplete="off" onSubmit={onSubmit}>
       <Grid container direction="column" spacing={2}>
-
         <Grid item xs>
           <TextField
-            id="name" label="track name"
+            id="name"
+            label="track name"
             value={state.name}
             onChange={inputChangeHandler}
             name="name"
@@ -82,17 +79,18 @@ const TrackForm = () => {
             onChange={(e) => setArtist(e.target.value)}
             name="artist"
           >
-            <MenuItem value="" disabled>select artist...</MenuItem>
-            {artists.map(artist => (
+            <MenuItem value="" disabled>
+              select artist...
+            </MenuItem>
+            {artists.map((artist) => (
               <MenuItem key={artist._id} value={artist._id}>
                 {artist.name}
               </MenuItem>
             ))}
           </TextField>
-
         </Grid>
 
-        { albums && (
+        {albums && (
           <Grid item xs>
             <TextField
               required
@@ -102,20 +100,22 @@ const TrackForm = () => {
               onChange={inputChangeHandler}
               name="album"
             >
-              <MenuItem value="" disabled>select album...</MenuItem>
-              {albums.albums.map(album => (
+              <MenuItem value="" disabled>
+                select album...
+              </MenuItem>
+              {albums.albums.map((album) => (
                 <MenuItem key={album._id} value={album._id}>
                   {album.name}
                 </MenuItem>
               ))}
             </TextField>
-
           </Grid>
         )}
 
         <Grid item xs>
           <TextField
-            id="duration" label="track duration"
+            id="duration"
+            label="track duration"
             value={state.duration}
             onChange={inputChangeHandler}
             name="duration"
@@ -127,21 +127,23 @@ const TrackForm = () => {
         <Grid item xs>
           <TextField
             type="number"
-            id="numberInAlbum" label="number in album"
+            id="numberInAlbum"
+            label="number in album"
             value={state.numberInAlbum}
             onChange={inputChangeHandler}
             name="numberInAlbum"
             size="small"
             required
             inputProps={{
-              min: 0
+              min: 0,
             }}
           />
         </Grid>
 
         <Grid item xs>
           <TextField
-            id="trackUrl" label="youtube link"
+            id="trackUrl"
+            label="youtube link"
             value={state.trackUrl}
             onChange={inputChangeHandler}
             name="trackUrl"
@@ -160,9 +162,7 @@ const TrackForm = () => {
           >
             <span>Send</span>
           </LoadingButton>
-
         </Grid>
-
       </Grid>
     </form>
   );

@@ -1,4 +1,5 @@
-.tracks__title-artist, .tracks__title-album {
+.tracks__title-artist,
+.tracks__title-album {
   margin-bottom: 15px;
 }
 
@@ -21,18 +22,19 @@
   align-items: center;
 }
 
-.tracklist__play-btn, .track__play-btn_pause {
+.tracklist__play-btn,
+.track__play-btn_pause {
   position: relative;
   width: 40px;
   height: 40px;
-  border: 2px solid rgba(179,93,227,1);
+  border: 2px solid rgba(179, 93, 227, 1);
   border-radius: 50%;
   transition: scale 0.1s;
 }
 
 .track__play-btn_pause:before {
   position: absolute;
-  content: "";
+  content: '';
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -50,7 +52,7 @@
   left: 55%;
   top: 52%;
   transform: translate(-50%, -50%);
-  content: "";
+  content: '';
   display: block;
   width: 0;
   height: 0;
@@ -72,7 +74,7 @@
   transform: scale(0.97);
 }
 
-.tracklist__track-name:hover{
+.tracklist__track-name:hover {
   text-decoration: underline;
 }
 

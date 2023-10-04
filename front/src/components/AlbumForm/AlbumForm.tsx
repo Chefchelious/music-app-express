@@ -5,7 +5,7 @@ import { fetchArtists } from '../../store/artistsThunk';
 import { useNavigate } from 'react-router-dom';
 import SendIcon from '@mui/icons-material/Send';
 import LoadingButton from '@mui/lab/LoadingButton';
-import {Grid, MenuItem, TextField} from "@mui/material";
+import { Grid, MenuItem, TextField } from '@mui/material';
 import FileInput from '../FileInput/FileInput';
 import { selectCreateAlbumLoading } from '../../store/albumsSlice';
 import { createAlbum } from '../../store/albumsThunk';
@@ -36,15 +36,15 @@ const AlbumForm = () => {
       await dispatch(createAlbum(state)).unwrap();
       navigate('/');
     } catch (e) {
-      alert('invalid field...')
+      alert('invalid field...');
     }
   };
 
   const filesInputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {name, files} = e.target;
+    const { name, files } = e.target;
 
-    if(files) {
-      setState(prevState => ({
+    if (files) {
+      setState((prevState) => ({
         ...prevState,
         [name]: files[0],
       }));
@@ -55,11 +55,10 @@ const AlbumForm = () => {
     formWorkInput(setState, e);
   };
 
-  return !artists.length ? <h3>Page updating, sorry...</h3> : (
-    <form
-      autoComplete="off"
-      onSubmit={onSubmit}
-    >
+  return !artists.length ? (
+    <h3>Page updating, sorry...</h3>
+  ) : (
+    <form autoComplete="off" onSubmit={onSubmit}>
       <Grid container direction="column" spacing={2}>
         <Grid item xs>
           <TextField
@@ -70,19 +69,21 @@ const AlbumForm = () => {
             onChange={inputChangeHandler}
             name="artist"
           >
-            <MenuItem value="" disabled>select artist...</MenuItem>
-            {artists.map(artist => (
+            <MenuItem value="" disabled>
+              select artist...
+            </MenuItem>
+            {artists.map((artist) => (
               <MenuItem key={artist._id} value={artist._id}>
                 {artist.name}
               </MenuItem>
             ))}
           </TextField>
-
         </Grid>
 
         <Grid item xs>
           <TextField
-            id="name" label="album name"
+            id="name"
+            label="album name"
             value={state.name}
             onChange={inputChangeHandler}
             name="name"
@@ -94,24 +95,21 @@ const AlbumForm = () => {
         <Grid item xs>
           <TextField
             type="number"
-            id="year" label="year"
+            id="year"
+            label="year"
             value={state.year}
             onChange={inputChangeHandler}
             name="year"
             size="small"
             required
             inputProps={{
-              min: 0
+              min: 0,
             }}
           />
         </Grid>
 
         <Grid item xs>
-          <FileInput
-            onChange={filesInputChangeHandler}
-            name="image"
-            label="image"
-          />
+          <FileInput onChange={filesInputChangeHandler} name="image" label="image" />
         </Grid>
 
         <Grid item xs>
@@ -125,9 +123,7 @@ const AlbumForm = () => {
           >
             <span>Send</span>
           </LoadingButton>
-
         </Grid>
-
       </Grid>
     </form>
   );

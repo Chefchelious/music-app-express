@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Avatar, Button, Grid, Menu, MenuItem} from '@mui/material';
+import { Avatar, Button, Grid, Menu, MenuItem } from '@mui/material';
 import { IUser } from '../../types';
 import { Link, Link as NavLink } from 'react-router-dom';
 import { useAppDispatch } from '../../app/hook';
@@ -9,7 +9,7 @@ interface Props {
   user: IUser;
 }
 
-const UserMenu: React.FC<Props> = ({user}) => {
+const UserMenu: React.FC<Props> = ({ user }) => {
   const dispatch = useAppDispatch();
   const handleLogout = () => dispatch(logout());
 
@@ -28,47 +28,28 @@ const UserMenu: React.FC<Props> = ({user}) => {
         Track History
       </Button>
 
-      <Button
-        onClick={handleClick}
-        color="inherit"
-      >
+      <Button onClick={handleClick} color="inherit">
         Hello, {user.displayName}
-
         <Avatar
-          sx={{ml: 1}}
+          sx={{ ml: 1 }}
           alt={user.displayName}
           src={user.avatar ? user.avatar : '/static/images/avatar/1.jpg'}
         />
       </Button>
-      <Menu
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
+      <Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
         <MenuItem>Profile</MenuItem>
         <MenuItem>My account</MenuItem>
-        <MenuItem
-          component={Link} to="/new-artist"
-          onClick={handleClose}
-        >
+        <MenuItem component={Link} to="/new-artist" onClick={handleClose}>
           Add artist
         </MenuItem>
-        <MenuItem
-          component={Link} to="/new-album"
-          onClick={handleClose}
-        >
+        <MenuItem component={Link} to="/new-album" onClick={handleClose}>
           Add album
         </MenuItem>
-        <MenuItem
-          component={Link} to="/new-track"
-          onClick={handleClose}
-        >
+        <MenuItem component={Link} to="/new-track" onClick={handleClose}>
           Add track
         </MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
-
     </Grid>
   );
 };

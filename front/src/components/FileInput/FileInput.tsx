@@ -37,7 +37,7 @@ const FileInput: React.FC<Props> = ({ onChange, name, label }) => {
       color: rgba(255, 250, 250, 0.78) !important;
       -webkit-text-fill-color: rgba(255, 250, 250, 0.78) !important;
     }
-    
+
     & .MuiFormLabel-root {
       color: rgba(255, 250, 250, 0.78) !important;
     }
@@ -48,7 +48,7 @@ const FileInput: React.FC<Props> = ({ onChange, name, label }) => {
       <input
         type="file"
         name={name}
-        style={{ display: "none" }}
+        style={{ display: 'none' }}
         ref={inputRef}
         onChange={onFileChange}
       />
@@ -65,7 +65,9 @@ const FileInput: React.FC<Props> = ({ onChange, name, label }) => {
         </Grid>
 
         <Grid item>
-          <Button variant="contained" sx={{background: '#00E20B'}} onClick={activateInput}>Browse</Button>
+          <Button variant="contained" sx={{ background: '#00E20B' }} onClick={activateInput}>
+            Browse
+          </Button>
         </Grid>
       </Grid>
     </>

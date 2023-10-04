@@ -1,8 +1,8 @@
 .header {
   position: relative;
   padding: 20px 0;
-  background: rgb(94,40,251);
-  background: linear-gradient(354deg, rgba(94,40,251,1) 0%, rgba(179,93,227,1) 100%);
+  background: rgb(94, 40, 251);
+  background: linear-gradient(354deg, rgba(94, 40, 251, 1) 0%, rgba(179, 93, 227, 1) 100%);
   margin-bottom: 30px;
 }
 

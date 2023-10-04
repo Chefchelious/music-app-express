@@ -1,7 +1,7 @@
 import { ITracksByAlbum } from '../types';
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../app/store';
-import {createTrack, deleteTrack, fetchTracks, toggleTrackPublished} from './tracksThunk';
+import { createTrack, deleteTrack, fetchTracks, toggleTrackPublished } from './tracksThunk';
 
 interface TracksState {
   items: ITracksByAlbum | null;
@@ -25,47 +25,47 @@ const tracksSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchTracks.pending, state => {
+      .addCase(fetchTracks.pending, (state) => {
         state.fetchLoading = true;
       })
-      .addCase(fetchTracks.fulfilled, (state, {payload: tracks}) => {
+      .addCase(fetchTracks.fulfilled, (state, { payload: tracks }) => {
         state.fetchLoading = false;
         state.items = tracks;
       })
-      .addCase(fetchTracks.rejected, state => {
+      .addCase(fetchTracks.rejected, (state) => {
         state.fetchLoading = false;
       });
 
     builder
-      .addCase(createTrack.pending, state => {
+      .addCase(createTrack.pending, (state) => {
         state.createLoading = true;
       })
       .addCase(createTrack.fulfilled, (state) => {
         state.createLoading = false;
       })
-      .addCase(createTrack.rejected, state => {
+      .addCase(createTrack.rejected, (state) => {
         state.createLoading = false;
       });
 
     builder
-      .addCase(toggleTrackPublished.pending, state => {
+      .addCase(toggleTrackPublished.pending, (state) => {
         state.publishedLoading = true;
       })
       .addCase(toggleTrackPublished.fulfilled, (state) => {
         state.publishedLoading = false;
       })
-      .addCase(toggleTrackPublished.rejected, state => {
+      .addCase(toggleTrackPublished.rejected, (state) => {
         state.publishedLoading = false;
       });
 
     builder
-      .addCase(deleteTrack.pending, state => {
+      .addCase(deleteTrack.pending, (state) => {
         state.deleteLoading = true;
       })
       .addCase(deleteTrack.fulfilled, (state) => {
         state.deleteLoading = false;
       })
-      .addCase(deleteTrack.rejected, state => {
+      .addCase(deleteTrack.rejected, (state) => {
         state.deleteLoading = false;
       });
   },

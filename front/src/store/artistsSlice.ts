@@ -27,14 +27,14 @@ const artistsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchArtists.pending, state => {
+      .addCase(fetchArtists.pending, (state) => {
         state.fetchLoading = true;
       })
-      .addCase(fetchArtists.fulfilled, (state, {payload: artists}) => {
+      .addCase(fetchArtists.fulfilled, (state, { payload: artists }) => {
         state.fetchLoading = false;
         state.items = artists;
       })
-      .addCase(fetchArtists.rejected, state => {
+      .addCase(fetchArtists.rejected, (state) => {
         state.fetchLoading = false;
       });
 
@@ -53,24 +53,24 @@ const artistsSlice = createSlice({
       });
 
     builder
-      .addCase(toggleArtistPublished.pending, state => {
+      .addCase(toggleArtistPublished.pending, (state) => {
         state.publishedLoading = true;
       })
       .addCase(toggleArtistPublished.fulfilled, (state) => {
         state.publishedLoading = false;
       })
-      .addCase(toggleArtistPublished.rejected, state => {
+      .addCase(toggleArtistPublished.rejected, (state) => {
         state.publishedLoading = false;
       });
 
     builder
-      .addCase(deleteArtist.pending, state => {
+      .addCase(deleteArtist.pending, (state) => {
         state.deleteLoading = true;
       })
       .addCase(deleteArtist.fulfilled, (state) => {
         state.deleteLoading = false;
       })
-      .addCase(deleteArtist.rejected, state => {
+      .addCase(deleteArtist.rejected, (state) => {
         state.deleteLoading = false;
       });
   },
@@ -81,4 +81,4 @@ export const artistsReducer = artistsSlice.reducer;
 export const selectArtists = (state: RootState) => state.artists.items;
 export const selectArtistsLoading = (state: RootState) => state.artists.fetchLoading;
 export const selectCreateArtistLoading = (state: RootState) => state.artists.createLoading;
-export const selectCreateArtistError= (state: RootState) => state.artists.createError;
+export const selectCreateArtistError = (state: RootState) => state.artists.createError;

@@ -14,19 +14,19 @@ export const fetchAlbumsByArtist = createAsyncThunk<IAlbumsByArtist, string>(
 export const createAlbum = createAsyncThunk<void, IAlbumMutation>(
   'albums/create',
   async (album) => {
-     const formData = new FormData();
+    const formData = new FormData();
 
-     const keys = Object.keys(album) as (keyof IAlbumMutation)[];
+    const keys = Object.keys(album) as (keyof IAlbumMutation)[];
 
-     keys.forEach(key => {
-       const value = album[key];
+    keys.forEach((key) => {
+      const value = album[key];
 
-       if(value !== null) {
-         formData.append(key, value);
-       }
-     });
+      if (value !== null) {
+        formData.append(key, value);
+      }
+    });
 
-     await axiosApi.post('/albums', formData);
+    await axiosApi.post('/albums', formData);
   },
 );
 
@@ -37,9 +37,6 @@ export const toggleAlbumPublished = createAsyncThunk<void, string>(
   },
 );
 
-export const deleteAlbum = createAsyncThunk<void, string>(
-  'albums/deleteOne',
-  async (id) => {
-    await axiosApi.delete(`/albums/${id}`);
-  },
-);
+export const deleteAlbum = createAsyncThunk<void, string>('albums/deleteOne', async (id) => {
+  await axiosApi.delete(`/albums/${id}`);
+});

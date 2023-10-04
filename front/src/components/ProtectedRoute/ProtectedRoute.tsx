@@ -6,7 +6,6 @@ interface IProps extends React.PropsWithChildren {
 }
 
 const ProtectedRoute: React.FC<IProps> = ({ isAllowed, children }) => {
-
   if (!isAllowed) {
     return <Navigate to="/login" />;
   }

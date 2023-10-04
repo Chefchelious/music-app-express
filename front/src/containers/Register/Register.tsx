@@ -5,9 +5,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { selectRegisterError, selectRegisterLoading } from '../../store/usersSlice';
 import { register } from '../../store/usersThunk';
-import { RegisterMutation } from '../../types';
 import { LoadingButton } from '@mui/lab';
 import FileInput from '../../components/FileInput/FileInput';
+import { RegisterMutation } from '../../types';
 
 const Register = () => {
   const dispatch = useAppDispatch();
@@ -25,7 +25,7 @@ const Register = () => {
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setState(prevState => ({...prevState, [name]: value}));
+    setState((prevState) => ({ ...prevState, [name]: value }));
   };
 
   const submitFormHandler = async (e: React.FormEvent) => {
@@ -68,13 +68,13 @@ const Register = () => {
           alignItems: 'center',
         }}
       >
-        <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
+        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <Box component="form" noValidate onSubmit={submitFormHandler} sx={{mt: 3}}>
+        <Box component="form" noValidate onSubmit={submitFormHandler} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -122,7 +122,7 @@ const Register = () => {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{mt: 3, mb: 2}}
+            sx={{ mt: 3, mb: 2 }}
             loading={loading}
           >
             Sign Up

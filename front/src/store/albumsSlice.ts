@@ -25,14 +25,14 @@ const albumsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAlbumsByArtist.pending, state => {
+      .addCase(fetchAlbumsByArtist.pending, (state) => {
         state.fetchLoading = true;
       })
-      .addCase(fetchAlbumsByArtist.fulfilled, (state, {payload: albums}) => {
+      .addCase(fetchAlbumsByArtist.fulfilled, (state, { payload: albums }) => {
         state.fetchLoading = false;
         state.items = albums;
       })
-      .addCase(fetchAlbumsByArtist.rejected, state => {
+      .addCase(fetchAlbumsByArtist.rejected, (state) => {
         state.fetchLoading = false;
       });
 
