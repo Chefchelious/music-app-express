@@ -2,7 +2,7 @@
   display: flex;
   gap: 30px;
   flex-wrap: wrap;
-  align-items: center;
+  /*align-items: center;*/
 }
 
 .artist-card {
@@ -15,6 +15,7 @@
 
 .artist-card__img-wrap {
   width: 164px;
+  height: 164px;
   margin-bottom: 20px;
   border-radius: 20px;
   overflow: hidden;
@@ -23,8 +24,9 @@
 }
 
 .artist-card__img {
+  object-fit: cover;
   width: 100%;
-  height: auto;
+  height: 100%;
   border-radius: 20px;
   vertical-align: top;
 }

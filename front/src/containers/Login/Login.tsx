@@ -3,10 +3,11 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { Alert, Avatar, Box, Container, Grid, Link, TextField, Typography } from '@mui/material';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
-import { login } from '../../store/usersThunk';
+import {googleLogin, login} from '../../store/usersThunk';
 import { selectLoginError, selectLoginLoading } from '../../store/usersSlice';
 import { LoginMutation } from '../../types';
 import { LoadingButton } from '@mui/lab';
+import {GoogleLogin} from "@react-oauth/google";
 
 const Login = () => {
   const dispatch = useAppDispatch();
@@ -35,6 +36,11 @@ const Login = () => {
     }
   };
 
+  const googleLoginHandler = async (credential: string) => {
+    await dispatch(googleLogin(credential)).unwrap();
+    navigate('/');
+  };
+
   return (
     <Container component="main" maxWidth="xs">
       <Box
@@ -51,6 +57,19 @@ const Login = () => {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
+
+        <Box sx={{ pt: 2 }}>
+          <GoogleLogin
+            onSuccess={(credentialResponse) => {
+              if (credentialResponse.credential) {
+                void googleLoginHandler(credentialResponse.credential);
+              }
+            }}
+            onError={() => {
+              console.log('Google login failed');
+            }}
+          />
+        </Box>
 
         {error && (
           <Alert severity="error" sx={{ mt: 3, width: '100%' }}>

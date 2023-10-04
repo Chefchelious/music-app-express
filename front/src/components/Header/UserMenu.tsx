@@ -34,6 +34,12 @@ const UserMenu: React.FC<Props> = ({user}) => {
         color="inherit"
       >
         Hello, {user.displayName}
+
+        <Avatar
+          sx={{ml: 1}}
+          alt={user.displayName}
+          src={user.avatar ? user.avatar : '/static/images/avatar/1.jpg'}
+        />
       </Button>
       <Menu
         anchorEl={anchorEl}
@@ -64,10 +70,6 @@ const UserMenu: React.FC<Props> = ({user}) => {
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
 
-      <Avatar
-        alt={user.displayName}
-        src={user.avatar ? `${apiUrl +  '/' + user.avatar}` : '/static/images/avatar/1.jpg'}
-      />
     </Grid>
   );
 };
