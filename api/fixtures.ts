@@ -23,16 +23,19 @@ const run = async () => {
   const [user_1, user_2, user_3] = await User.create({
     username: 'Test 1',
     password: '123',
-    token: 'd233b045-70c6-496c-a234-c38e944c41ac'
+    token: 'd233b045-70c6-496c-a234-c38e944c41ac',
+    displayName: 'test'
   }, {
     username: 'Test 2',
     password: 'admin',
-    token: 'f7aa223d-1c0a-46fd-962a-4cadb74cd293'
+    token: 'f7aa223d-1c0a-46fd-962a-4cadb74cd293',
+     displayName: 'ttt'
   }, {
     username: 'Dim',
     password: '123',
     token: '9b0d45f7-2320-48a0-b802-119d4e92e1e2',
     role: 'admin',
+    displayName: 'admin'
   });
 
   const [artist_50_cent, knownAim, sssBoys] = await Artist.create({

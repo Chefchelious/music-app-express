@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Button, Menu, MenuItem } from '@mui/material';
+import {Avatar, Button, Grid, Menu, MenuItem} from '@mui/material';
 import { IUser } from '../../types';
 import { Link, Link as NavLink } from 'react-router-dom';
 import { useAppDispatch } from '../../app/hook';
 import { logout } from '../../store/usersThunk';
+import {apiUrl} from "../../constants";
 
 interface Props {
   user: IUser;
@@ -23,7 +24,7 @@ const UserMenu: React.FC<Props> = ({user}) => {
   };
 
   return (
-    <>
+    <Grid container>
       <Button component={NavLink} to="/track_history" color="inherit">
         Track History
       </Button>
@@ -32,7 +33,7 @@ const UserMenu: React.FC<Props> = ({user}) => {
         onClick={handleClick}
         color="inherit"
       >
-        Hello, {user.username}
+        Hello, {user.displayName}
       </Button>
       <Menu
         anchorEl={anchorEl}
@@ -62,7 +63,12 @@ const UserMenu: React.FC<Props> = ({user}) => {
         </MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
-    </>
+
+      <Avatar
+        alt={user.displayName}
+        src={user.avatar ? `${apiUrl +  '/' + user.avatar}` : '/static/images/avatar/1.jpg'}
+      />
+    </Grid>
   );
 };
 

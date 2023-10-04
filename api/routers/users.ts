@@ -1,14 +1,17 @@
 import express from 'express';
 import User from "../models/User";
 import mongoose from "mongoose";
+import {imagesUpload} from "../multer";
 
 const usersRouter = express.Router();
 
-usersRouter.post('/', async (req, res, next) => {
+usersRouter.post('/', imagesUpload.single('avatar'), async (req, res, next) => {
   try {
     const user = new User({
       username: req.body.username,
+      displayName: req.body.displayName,
       password: req.body.password,
+      avatar: req.file ? req.file.filename : null,
     });
 
     user.generateToken();

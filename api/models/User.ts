@@ -41,6 +41,12 @@ const UserSchema = new Schema<IUser, TUserModel, IUserMethods>({
     type: String,
     required: true,
   },
+  displayName: {
+    type: String,
+    required: [true, 'Path `display name` is required'],
+  },
+  googleId: String,
+  avatar: String,
 });
 
 UserSchema.pre('save', async function(next) {
@@ -53,7 +59,7 @@ UserSchema.pre('save', async function(next) {
 });
 
 UserSchema.set('toJSON', {
-  transform: (doc, ret, options) => {
+  transform: (_, ret) => {
     delete ret.password;
 
     return ret;
