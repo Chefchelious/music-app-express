@@ -1,10 +1,10 @@
-import express from "express";
-import mongoose from "mongoose";
-import TrackHistory from "../models/TrackHistory";
-import auth, {IRequestWithUser} from "../middlewares/auth";
-import Track from "../models/Track";
-import Album from "../models/Album";
-import Artist from "../models/Artist";
+import express from 'express';
+import mongoose from 'mongoose';
+import TrackHistory from '../models/TrackHistory';
+import auth, { IRequestWithUser } from '../middlewares/auth';
+import Track from '../models/Track';
+import Album from '../models/Album';
+import Artist from '../models/Artist';
 
 const trackHistoryRouter = express.Router();
 
@@ -15,7 +15,7 @@ trackHistoryRouter.post('/', auth, async (req, res, next) => {
     const track = await Track.findById(req.body.track);
 
     if (!track) {
-      return res.status(404).send({error: 'Track not found'});
+      return res.status(404).send({ error: 'Track not found' });
     }
 
     const trackHistory = new TrackHistory({
@@ -26,7 +26,7 @@ trackHistoryRouter.post('/', auth, async (req, res, next) => {
 
     return res.send(trackHistory);
   } catch (e) {
-    if(e instanceof mongoose.Error.ValidationError) {
+    if (e instanceof mongoose.Error.ValidationError) {
       return res.status(400).send(e);
     }
     return next(e);
@@ -37,7 +37,7 @@ trackHistoryRouter.get('/', auth, async (req, res, next) => {
   try {
     const user = (req as IRequestWithUser).user;
 
-    const tracksHistory = await TrackHistory.find({ user: user._id }).sort({datetime: -1});
+    const tracksHistory = await TrackHistory.find({ user: user._id }).sort({ datetime: -1 });
 
     const promises = tracksHistory.map(async (t) => {
       const track = await Track.findById(t.track);

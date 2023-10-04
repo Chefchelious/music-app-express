@@ -1,26 +1,26 @@
-import express from "express";
-import Track from "../models/Track";
-import Album from "../models/Album";
-import mongoose from "mongoose";
-import {ObjectId} from "mongodb";
-import auth, {IRequestWithUser} from "../middlewares/auth";
-import permit from "../middlewares/permit";
-import {ITrack} from "../types";
+import express from 'express';
+import Track from '../models/Track';
+import Album from '../models/Album';
+import mongoose from 'mongoose';
+import { ObjectId } from 'mongodb';
+import auth, { IRequestWithUser } from '../middlewares/auth';
+import permit from '../middlewares/permit';
+import { ITrack } from '../types';
 
 const tracksRouter = express.Router();
 
 tracksRouter.get('/', async (req, res) => {
   try {
-    if(req.query.album) {
+    if (req.query.album) {
       const id = req.query.album as string;
 
       const album = await Album.findById(id).populate('artist');
 
-      if(!album) {
-        return res.status(404).send({error: 'Album not found'});
+      if (!album) {
+        return res.status(404).send({ error: 'Album not found' });
       }
 
-      const tracks = await Track.find({album: id}).sort({numberInAlbum: 1});
+      const tracks = await Track.find({ album: id }).sort({ numberInAlbum: 1 });
 
       return res.send({
         title: album.name,
@@ -29,12 +29,12 @@ tracksRouter.get('/', async (req, res) => {
       });
     }
 
-    if(req.query.artist) {
+    if (req.query.artist) {
       const artistId = req.query.artist as string;
-      const albumsByArtist = await Album.find({artist: new ObjectId(artistId)});
-      const albumsId = albumsByArtist.map(album => album._id);
+      const albumsByArtist = await Album.find({ artist: new ObjectId(artistId) });
+      const albumsId = albumsByArtist.map((album) => album._id);
 
-      const tracksByArtist = await Track.find({album: { $in: albumsId}});
+      const tracksByArtist = await Track.find({ album: { $in: albumsId } });
 
       return res.send(tracksByArtist);
     }
@@ -66,7 +66,7 @@ tracksRouter.post('/', auth, async (req, res, next) => {
 
     return res.send(track);
   } catch (e) {
-    if(e instanceof mongoose.Error.ValidationError) {
+    if (e instanceof mongoose.Error.ValidationError) {
       return res.status(400).send(e);
     }
     return next(e);
@@ -80,7 +80,7 @@ tracksRouter.delete('/:id', auth, async (req, res) => {
     const track = await Track.findById(req.params.id);
 
     if (!track) {
-      return res.status(404).send({error: 'track not found'});
+      return res.status(404).send({ error: 'track not found' });
     }
 
     if (user.role === 'admin') {
@@ -106,7 +106,7 @@ tracksRouter.patch('/:id/togglePublished', auth, permit('admin'), async (req, re
     const track = await Track.findById(req.params.id);
 
     if (!track) {
-      return res.status(404).send({error: 'track not found'});
+      return res.status(404).send({ error: 'track not found' });
     }
 
     track.isPublished = !track.isPublished;

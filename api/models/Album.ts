@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import Artist from "./Artist";
+import mongoose from 'mongoose';
+import Artist from './Artist';
 
 const AlbumSchema = new mongoose.Schema({
   name: {
@@ -26,7 +26,7 @@ const AlbumSchema = new mongoose.Schema({
     default: false,
   },
   user: {
-    type:  mongoose.Types.ObjectId,
+    type: mongoose.Types.ObjectId,
     ref: 'User',
     required: true,
   },

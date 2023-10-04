@@ -1,12 +1,12 @@
 import express from 'express';
 import cors from 'cors';
-import * as mongoose from "mongoose";
-import artistsRouter from "./routers/artists";
-import albumsRouter from "./routers/albums";
-import tracksRouter from "./routers/tracks";
-import usersRouter from "./routers/users";
-import trackHistoryRouter from "./routers/trackHistory";
-import config from "./config";
+import * as mongoose from 'mongoose';
+import artistsRouter from './routers/artists';
+import albumsRouter from './routers/albums';
+import tracksRouter from './routers/tracks';
+import usersRouter from './routers/users';
+import trackHistoryRouter from './routers/trackHistory';
+import config from './config';
 
 const app = express();
 const port = 8000;
@@ -28,4 +28,4 @@ const run = async () => {
   });
 };
 
-run().catch(e => console.error(e));
+run().catch((e) => console.error(e));

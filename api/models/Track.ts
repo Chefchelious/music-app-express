@@ -1,6 +1,6 @@
-import mongoose, {HydratedDocument} from "mongoose";
-import Album from "./Album";
-import {ITrack} from "../types";
+import mongoose, { HydratedDocument } from 'mongoose';
+import Album from './Album';
+import { ITrack } from '../types';
 
 const TrackSchema = new mongoose.Schema({
   name: {
@@ -25,11 +25,14 @@ const TrackSchema = new mongoose.Schema({
     min: 1,
     required: true,
     validate: {
-      validator: async function (this: HydratedDocument<ITrack>): Promise<Boolean> {
+      validator: async function (this: HydratedDocument<ITrack>): Promise<boolean> {
         if (!this.isModified('numberInAlbum')) {
           return true;
         }
-        const existNumberInAlbum = await Track.findOne({ album: this.album,  numberInAlbum: this.numberInAlbum });
+        const existNumberInAlbum = await Track.findOne({
+          album: this.album,
+          numberInAlbum: this.numberInAlbum,
+        });
 
         return !existNumberInAlbum;
       },
@@ -46,7 +49,7 @@ const TrackSchema = new mongoose.Schema({
     default: false,
   },
   user: {
-    type:  mongoose.Types.ObjectId,
+    type: mongoose.Types.ObjectId,
     ref: 'User',
     required: true,
   },

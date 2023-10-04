@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import {ObjectId} from "mongodb";
+import mongoose from 'mongoose';
+import { ObjectId } from 'mongodb';
 
 export interface IArtist {
   name: string;

@@ -1,16 +1,17 @@
-import {Schema, model, Model, HydratedDocument} from 'mongoose';
-import { IUser } from "../types";
+import { Schema, model, Model, HydratedDocument } from 'mongoose';
+import { IUser } from '../types';
 import bcrypt from 'bcrypt';
-import {randomUUID} from "crypto";
+import { randomUUID } from 'crypto';
 
 const SALT_WORK_FACTOR = 7;
 
 interface IUserMethods {
   checkPassword(password: string): Promise<boolean>;
+
   generateToken(): void;
 }
 
-type TUserModel = Model<IUser, {}, IUserMethods>;
+type TUserModel = Model<IUser, NonNullable<unknown>, IUserMethods>;
 
 const UserSchema = new Schema<IUser, TUserModel, IUserMethods>({
   username: {
@@ -49,8 +50,8 @@ const UserSchema = new Schema<IUser, TUserModel, IUserMethods>({
   avatar: String,
 });
 
-UserSchema.pre('save', async function(next) {
-  if(!this.isModified('password')) return next();
+UserSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) return next();
 
   const salt = await bcrypt.genSalt(SALT_WORK_FACTOR);
   this.password = await bcrypt.hash(this.password, salt);
