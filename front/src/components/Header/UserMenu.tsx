@@ -4,7 +4,6 @@ import { IUser } from '../../types';
 import { Link, Link as NavLink } from 'react-router-dom';
 import { useAppDispatch } from '../../app/hook';
 import { logout } from '../../store/usersThunk';
-import {apiUrl} from "../../constants";
 
 interface Props {
   user: IUser;
